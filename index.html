@@ -53,11 +53,9 @@
     .service-image::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(to top,rgba(16,11,8,.28) 0%,rgba(16,11,8,.03) 46%,transparent 74%); }
     .image-text { position:absolute; z-index:1; right:30px; bottom:27px; left:30px; color:#fff; text-shadow:0 3px 14px rgba(0,0,0,.48); }
     .image-text h3 { max-width:740px; margin:0; font-family:var(--script); font-size:clamp(47px,4.4vw,73px); font-weight:400; letter-spacing:0; line-height:.88; text-transform:none; }
-
     .service-copy { display:flex; flex-direction:column; align-items:flex-start; gap:14px; padding:22px 18px; }
     .service-copy h3 { margin:0; font-family:var(--clean); font-size:10px; font-weight:500; letter-spacing:.19em; line-height:1.35; text-transform:uppercase; }
     .service-copy h3::after { content:""; display:block; width:38px; height:1px; margin-top:13px; background:var(--accent); }
-    /* Bei den umgedrehten Bereichen liegt die Linie rechtsbündig unter der Überschrift. */
     .service.reverse .service-copy h3::after { margin-left:auto; margin-right:0; }
     .service-copy p { max-width:350px; margin:0; color:var(--muted); font-family:var(--clean); font-size:13px; font-weight:300; letter-spacing:.025em; line-height:1.9; }
 
@@ -113,6 +111,8 @@
       .service-image { height:440px; }
       .image-text { right:20px; bottom:18px; left:20px; }
       .image-text h3 { font-size:clamp(45px,15vw,63px); line-height:.86; }
+      /* Der lange Bildtitel ist auf Mobil bewusst auf zwei ruhige Reihen begrenzt. */
+      .image-text h3.long-title { max-width:88%; font-size:clamp(39px,12.5vw,53px); line-height:.9; }
       .service-copy { padding:0 4px; }
       .service-copy h3 { display:block; font-size:9px; }
       .service-copy p { max-width:none; font-size:13px; line-height:1.8; }
@@ -144,10 +144,11 @@
         <article class="service reveal"><div class="service-image"><img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Diana%20Lippen.jpg?raw=true" alt="Brautstyling" style="object-position:center 24%;"><div class="image-text"><h3>Brautstyling</h3></div></div><div class="service-copy"><h3>Brautstyling</h3><p>Ein Komplettpaket für meine Bräute inklusive Make-up, Haarstyling und einer Probe.</p></div></article>
         <article class="service reverse reveal"><div class="service-image"><img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Model-JillMo-Artist-SarahStrauss-Fotograf-OliverRudolph-Nude.jpg?raw=true" alt="Make-up" style="object-position:center 14%;"><div class="image-text"><h3>Make-up</h3></div></div><div class="service-copy"><h3>Make-up</h3><p>Beim Make-up ist es mir sehr wichtig, deine natürliche Schönheit zu unterstreichen und speziell auf dich einzugehen.</p></div></article>
         <article class="service reveal"><div class="service-image"><img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Sasa%20am%20stylen.jpg?raw=true" alt="Haarstyling" style="object-position:center 28%;"><div class="image-text"><h3>Haarstyling</h3></div></div><div class="service-copy"><h3>Haarstyling</h3><p>Beim Haarstyling benutze ich nur ausgewählte und hochwertige Produkte.</p></div></article>
-        <article class="service reverse reveal" id="portfolio"><div class="service-image"><img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Model-JillMo-Artist-SarahStrauss-Fotograf-OliverRudolph-Trend.jpg?raw=true" alt="Styling für Shootings, Film und Fernsehen" style="object-position:center 18%;"><div class="image-text"><h3>Styling für Shootings,<br>Film und Fernsehen</h3></div></div><div class="service-copy"><h3>Styling für Shootings, Film und Fernsehen</h3><p>Für besondere Anlässe gestalte ich auch abstraktes Make-up, zum Beispiel für Film, Kostüm, Cosplay oder Halloween.</p></div></article>
+        <article class="service reverse reveal" id="portfolio"><div class="service-image"><img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Model-JillMo-Artist-SarahStrauss-Fotograf-OliverRudolph-Trend.jpg?raw=true" alt="Styling für Shootings, Film und Fernsehen" style="object-position:center 18%;"><div class="image-text"><h3 class="long-title">Styling für Shootings,<br>Film und Fernsehen</h3></div></div><div class="service-copy"><h3>Styling für Shootings, Film und Fernsehen</h3><p>Für besondere Anlässe gestalte ich auch abstraktes Make-up, zum Beispiel für Film, Kostüm, Cosplay oder Halloween.</p></div></article>
         <article class="service reveal"><div class="service-image"><img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Microblading.jpg?raw=true" alt="Microblading und Shading" style="object-position:center 30%;"><div class="image-text"><h3>Microblading und Shading</h3></div></div><div class="service-copy"><h3>Microblading und Shading</h3><p>Härchentechnik und Powder Brows für ausdrucksstarke Brauen.</p></div></article>
       </div></section>
-      <section class="contact container reveal" id="contact"><div class="contact-copy"><div><h2>Kontakt</h2><p>53547 Breitscheid, Deutschland<br><a href="mailto:sasatrumua@web.de">sasatrumua@web.de</a><br><a href="tel:+4917622583873">017622583873</a></p></div></div><div class="contact-image"><img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Pinseltasche.png?raw=true" alt="Pinseltasche mit Make-up-Pinseln"></div></section>
+
+      <section class="contact container reveal" id="contact"><div class="contact-copy"><div><h2>Kontakt</h2><p><a href="mailto:sasatrumua@web.de">sasatrumua@web.de</a><br><a href="tel:+4917622583873">017622583873</a></p></div></div><div class="contact-image"><img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Pinseltasche.png?raw=true" alt="Pinseltasche mit Make-up-Pinseln"></div></section>
       <footer class="container"><div><a href="mailto:sasatrumua@web.de">sasatrumua@web.de</a></div><div class="footer-links"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="agb.html">AGB</a></div><div>© 2022 von sasatrumua.</div></footer>
     </div>
   </main>

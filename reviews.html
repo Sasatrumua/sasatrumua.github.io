@@ -5,548 +5,128 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Erfahrungen und Bewertungen von Bräuten von sasatrumua.">
   <title>Reviews | sasatrumua</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-
   <style>
-    :root {
-      --ink: #292522;
-      --muted: #71675f;
-      --gold: #b58a43;
-      --line: rgba(99, 77, 49, .15);
-      --card: rgba(255, 255, 255, .25);
-      --clean: "DM Sans", Arial, sans-serif;
-      --script: "Alex Brush", cursive;
+    :root { --ink:#292522; --muted:#71675f; --gold:#b58a43; --line:rgba(99,77,49,.15); --card:rgba(255,255,255,.25); --clean:"DM Sans",Arial,sans-serif; --script:"Alex Brush",cursive; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+
+    /* Einmaliger, fester Marmorhintergrund für die gesamte Seite. */
+    body { margin:0; overflow-x:hidden; color:var(--ink); font-family:var(--clean); background:#f3eee7; }
+    body::before { content:""; position:fixed; z-index:-2; inset:0; background:url("https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Marmor.png?raw=true") center center / cover no-repeat; pointer-events:none; }
+    body::after { content:""; position:fixed; z-index:-1; inset:0; background:rgba(248,245,240,.12); pointer-events:none; }
+
+    a { color:inherit; text-decoration:none; }
+    img { display:block; max-width:100%; }
+    .container { width:min(calc(100% - 64px),1180px); margin:0 auto; }
+    .site-header { width:100%; padding:14px 0 11px; text-align:center; background:rgba(250,248,244,.28); }
+    .header-inner { width:min(calc(100% - 64px),1440px); margin:0 auto; text-align:center; }
+    .logo-link { display:inline-block; line-height:0; }
+    .logo-link:focus-visible { outline:1px solid var(--gold); outline-offset:5px; }
+    .logo { width:116px; margin:0 auto 5px; }
+    .desktop-nav { display:flex; justify-content:center; align-items:center; gap:19px; padding:3px 0 8px; font-size:10px; font-weight:500; letter-spacing:.18em; text-transform:uppercase; }
+    .desktop-nav a { position:relative; padding:4px 0; white-space:nowrap; }
+    .desktop-nav a::after { content:""; position:absolute; left:50%; bottom:0; width:0; height:1px; background:var(--gold); transform:translateX(-50%); transition:width .24s ease; }
+    .desktop-nav a:hover::after,.desktop-nav a:focus-visible::after,.desktop-nav a[aria-current="page"]::after { width:100%; }
+    .menu-toggle,.mobile-menu { display:none; }
+
+    main { padding:70px 0 84px; }
+    .page-intro { margin-bottom:47px; text-align:center; }
+    .page-intro h1 { margin:0; color:var(--ink); font-family:var(--script); font-size:clamp(54px,6vw,84px); font-weight:400; line-height:.92; }
+    .page-intro::after { content:""; display:block; width:54px; height:1px; margin:24px auto 0; background:var(--gold); }
+    .reviews-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; align-items:stretch; }
+    .review-card { display:flex; flex-direction:column; min-height:242px; padding:31px 34px 29px; border:1px solid var(--line); background:var(--card); box-shadow:0 10px 26px rgba(82,61,39,.05); }
+    .review-name { margin:0 0 18px; color:var(--ink); font-family:var(--script); font-size:43px; font-weight:400; line-height:.85; }
+    .review-text { margin:0; color:var(--muted); font-size:14px; font-weight:300; letter-spacing:.012em; line-height:1.78; white-space:pre-line; }
+    .review-card::after { content:""; width:31px; height:1px; margin-top:auto; padding-top:25px; border-bottom:1px solid var(--gold); }
+    footer { width:min(calc(100% - 64px),1180px); margin:0 auto; padding:28px 0 23px; border-top:1px solid var(--line); text-align:center; color:var(--muted); font-size:10px; font-weight:400; letter-spacing:.1em; text-transform:uppercase; }
+    .footer-links { display:flex; justify-content:center; flex-wrap:wrap; gap:13px; margin:12px 0; }
+    .reveal { opacity:0; transform:translateY(22px); transition:opacity .76s ease,transform .76s ease; }
+    .reveal.visible { opacity:1; transform:none; }
+    .gold-dust-layer { position:fixed; inset:0; z-index:999; overflow:hidden; pointer-events:none; }
+    .gold-dust { position:fixed; width:3px; height:3px; border-radius:50%; pointer-events:none; opacity:0; background:radial-gradient(circle,rgba(255,255,255,1) 0 16%,rgba(255,234,183,1) 28%,rgba(211,164,78,.95) 60%,rgba(177,124,45,0) 79%); box-shadow:0 0 3px rgba(255,247,221,.98),0 0 8px rgba(213,165,79,.65); transform:translate(-50%,-50%) scale(.2); will-change:transform,opacity; }
+
+    @media (max-width:920px) { .header-inner,.container,footer { width:min(calc(100% - 34px),760px); } .reviews-grid { gap:18px; } .review-card { padding:27px 26px 25px; } }
+    @media (max-width:620px) {
+      .container,footer { width:min(calc(100% - 28px),1440px); }
+      .site-header { padding:12px 0 10px; background:transparent; }
+      /* Vollbreite und Flex-Ausrichtung sichern die echte Mitte für Logo und Menü. */
+      .header-inner { display:flex; flex-direction:column; align-items:center; width:100%; margin:0; text-align:center; }
+      .logo-link { display:block; width:102px; margin:0 auto; line-height:0; }
+      .logo { width:102px; margin:0; }
+      .desktop-nav { display:none; }
+      .menu-toggle { display:inline-flex; align-items:center; justify-content:center; gap:9px; align-self:center; margin:10px auto 2px; padding:9px 13px; border:1px solid rgba(83,65,52,.24); border-radius:999px; color:var(--ink); background:rgba(255,255,255,.14); font-family:var(--clean); font-size:10px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; cursor:pointer; }
+      .burger-lines,.burger-lines::before,.burger-lines::after { display:block; width:17px; height:1px; background:var(--ink); transition:transform .22s ease; }
+      .burger-lines { position:relative; } .burger-lines::before,.burger-lines::after { content:""; position:absolute; left:0; } .burger-lines::before { top:-5px; } .burger-lines::after { top:5px; }
+      .menu-toggle[aria-expanded="true"] .burger-lines { background:transparent; } .menu-toggle[aria-expanded="true"] .burger-lines::before { transform:translateY(5px) rotate(45deg); } .menu-toggle[aria-expanded="true"] .burger-lines::after { transform:translateY(-5px) rotate(-45deg); }
+      .mobile-menu { display:grid; grid-template-rows:0fr; width:100%; overflow:hidden; margin:0; transition:grid-template-rows .26s ease; }
+      .mobile-menu.open { grid-template-rows:1fr; } .mobile-menu-inner { min-height:0; display:grid; width:min(calc(100% - 28px),420px); margin:0 auto; }
+      .mobile-menu a { padding:13px 10px; font-size:12px; font-weight:500; letter-spacing:.12em; text-align:center; text-transform:uppercase; border-bottom:1px solid rgba(68,53,43,.12); } .mobile-menu a:last-child { border-bottom:0; }
+      main { padding:52px 0 64px; } .page-intro { margin-bottom:35px; } .page-intro h1 { font-size:60px; } .page-intro::after { margin-top:20px; }
+      .reviews-grid { grid-template-columns:1fr; gap:17px; } .review-card { min-height:auto; padding:28px 25px 25px; } .review-name { margin-bottom:17px; font-size:41px; } .review-text { font-size:14px; line-height:1.78; }
+      .gold-dust-layer { display:none; }
     }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      overflow-x: hidden;
-      color: var(--ink);
-      font-family: var(--clean);
-      background-color: #f3eee7;
-      background-image:
-        linear-gradient(rgba(248, 245, 240, .18), rgba(248, 245, 240, .18)),
-        url("https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Marmor.png?raw=true");
-      background-repeat: no-repeat, no-repeat;
-      background-position: center top, center top;
-      background-size: cover, 100% 100%;
-      background-attachment: fixed, fixed;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    img { display: block; max-width: 100%; }
-
-    .container {
-      width: min(calc(100% - 64px), 1180px);
-      margin: 0 auto;
-    }
-
-    .site-header {
-      width: 100%;
-      padding: 14px 0 11px;
-      text-align: center;
-      background: rgba(250, 248, 244, .28);
-    }
-
-    .header-inner {
-      width: min(calc(100% - 64px), 1440px);
-      margin: 0 auto;
-    }
-
-    .logo-link { display: inline-block; }
-
-    .logo-link:focus-visible {
-      outline: 1px solid var(--gold);
-      outline-offset: 5px;
-    }
-
-    .logo {
-      width: 116px;
-      margin: 0 auto 5px;
-    }
-
-    .desktop-nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 19px;
-      padding: 3px 0 8px;
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-    }
-
-    .desktop-nav a {
-      position: relative;
-      padding: 4px 0;
-      white-space: nowrap;
-    }
-
-    .desktop-nav a::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: 0;
-      width: 0;
-      height: 1px;
-      background: var(--gold);
-      transform: translateX(-50%);
-      transition: width .24s ease;
-    }
-
-    .desktop-nav a:hover::after,
-    .desktop-nav a:focus-visible::after,
-    .desktop-nav a[aria-current="page"]::after { width: 100%; }
-
-    .menu-toggle,
-    .mobile-menu { display: none; }
-
-    main { padding: 70px 0 84px; }
-
-    .page-intro {
-      margin-bottom: 47px;
-      text-align: center;
-    }
-
-    .page-intro h1 {
-      margin: 0;
-      color: var(--ink);
-      font-family: var(--script);
-      font-size: clamp(54px, 6vw, 84px);
-      font-weight: 400;
-      line-height: .92;
-    }
-
-    .page-intro::after {
-      content: "";
-      display: block;
-      width: 54px;
-      height: 1px;
-      margin: 24px auto 0;
-      background: var(--gold);
-    }
-
-    .reviews-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 24px;
-      align-items: stretch;
-    }
-
-    .review-card {
-      display: flex;
-      flex-direction: column;
-      min-height: 242px;
-      padding: 31px 34px 29px;
-      border: 1px solid var(--line);
-      background: var(--card);
-      box-shadow: 0 10px 26px rgba(82, 61, 39, .05);
-    }
-
-    /* Namen in Schnörkelschrift, damit die eigentlichen Nachrichten in DM Sans klar lesbar bleiben. */
-    .review-name {
-      margin: 0 0 18px;
-      color: var(--ink);
-      font-family: var(--script);
-      font-size: 43px;
-      font-weight: 400;
-      line-height: .85;
-    }
-
-    .review-text {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 300;
-      letter-spacing: .012em;
-      line-height: 1.78;
-      white-space: pre-line;
-    }
-
-    .review-card::after {
-      content: "";
-      width: 31px;
-      height: 1px;
-      margin-top: auto;
-      padding-top: 25px;
-      border-bottom: 1px solid var(--gold);
-    }
-
-    footer {
-      width: min(calc(100% - 64px), 1180px);
-      margin: 0 auto;
-      padding: 28px 0 23px;
-      border-top: 1px solid var(--line);
-      text-align: center;
-      color: var(--muted);
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 13px;
-      margin: 12px 0;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity .76s ease, transform .76s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    .gold-dust-layer {
-      position: fixed;
-      inset: 0;
-      z-index: 999;
-      overflow: hidden;
-      pointer-events: none;
-    }
-
-    .gold-dust {
-      position: fixed;
-      width: 3px;
-      height: 3px;
-      border-radius: 50%;
-      pointer-events: none;
-      opacity: 0;
-      background: radial-gradient(circle, rgba(255,255,255,1) 0 16%, rgba(255,234,183,1) 28%, rgba(211,164,78,.95) 60%, rgba(177,124,45,0) 79%);
-      box-shadow: 0 0 3px rgba(255,247,221,.98), 0 0 8px rgba(213,165,79,.65);
-      transform: translate(-50%, -50%) scale(.2);
-      will-change: transform, opacity;
-    }
-
-    @media (max-width: 920px) {
-      .header-inner,
-      .container,
-      footer { width: min(calc(100% - 34px), 760px); }
-      .reviews-grid { gap: 18px; }
-      .review-card { padding: 27px 26px 25px; }
-    }
-
-    @media (max-width: 620px) {
-      .header-inner,
-      .container,
-      footer { width: min(calc(100% - 28px), 1440px); }
-
-      body {
-        background-image:
-          linear-gradient(rgba(248, 245, 240, .03), rgba(248, 245, 240, .03)),
-          url("https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Marmor.png?raw=true");
-        background-repeat: no-repeat, no-repeat;
-        background-position: center top, center top;
-        background-size: cover, auto auto;
-        background-attachment: scroll, scroll;
-      }
-
-      .site-header { padding-top: 12px; background: transparent; }
-      .logo { width: 102px; margin-bottom: 0; }
-      .desktop-nav { display: none; }
-
-      .menu-toggle {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 9px;
-        margin: 7px 0 9px;
-        padding: 9px 13px;
-        border: 1px solid rgba(83, 65, 52, .24);
-        border-radius: 999px;
-        color: var(--ink);
-        background: rgba(255, 255, 255, .14);
-        font-family: var(--clean);
-        font-size: 10px;
-        font-weight: 500;
-        letter-spacing: .12em;
-        text-transform: uppercase;
-        cursor: pointer;
-      }
-
-      .burger-lines,
-      .burger-lines::before,
-      .burger-lines::after {
-        display: block;
-        width: 17px;
-        height: 1px;
-        background: var(--ink);
-        transition: transform .22s ease;
-      }
-
-      .burger-lines { position: relative; }
-      .burger-lines::before,
-      .burger-lines::after { content: ""; position: absolute; left: 0; }
-      .burger-lines::before { top: -5px; }
-      .burger-lines::after { top: 5px; }
-      .menu-toggle[aria-expanded="true"] .burger-lines { background: transparent; }
-      .menu-toggle[aria-expanded="true"] .burger-lines::before { transform: translateY(5px) rotate(45deg); }
-      .menu-toggle[aria-expanded="true"] .burger-lines::after { transform: translateY(-5px) rotate(-45deg); }
-
-      .mobile-menu {
-        display: grid;
-        grid-template-rows: 0fr;
-        overflow: hidden;
-        margin: 0 auto;
-        transition: grid-template-rows .26s ease;
-      }
-
-      .mobile-menu.open { grid-template-rows: 1fr; }
-      .mobile-menu-inner { min-height: 0; display: grid; }
-
-      .mobile-menu a {
-        padding: 13px 10px;
-        font-size: 12px;
-        font-weight: 500;
-        letter-spacing: .12em;
-        text-transform: uppercase;
-        border-bottom: 1px solid rgba(68, 53, 43, .12);
-      }
-
-      .mobile-menu a:last-child { border-bottom: 0; }
-      main { padding: 52px 0 64px; }
-      .page-intro { margin-bottom: 35px; }
-      .page-intro h1 { font-size: 60px; }
-      .page-intro::after { margin-top: 20px; }
-
-      .reviews-grid { grid-template-columns: 1fr; gap: 17px; }
-      .review-card { min-height: auto; padding: 28px 25px 25px; }
-      .review-name { margin-bottom: 17px; font-size: 41px; }
-      .review-text { font-size: 14px; line-height: 1.78; }
-      .gold-dust-layer { display: none; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after { transition: none !important; animation: none !important; }
-      .reveal { opacity: 1; transform: none; }
-      .gold-dust-layer { display: none; }
-    }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition:none!important; animation:none!important; } .reveal { opacity:1; transform:none; } .gold-dust-layer { display:none; } }
   </style>
 </head>
 <body>
   <div class="gold-dust-layer" aria-hidden="true"></div>
-
   <header class="site-header">
     <div class="header-inner">
-      <a class="logo-link" href="index.html" aria-label="Zur Startseite">
-        <img class="logo" src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Logo_final-removebg-preview.png?raw=true" alt="sasatrumua Logo">
-      </a>
-
-      <nav class="desktop-nav" aria-label="Hauptnavigation">
-        <a href="index.html">Home</a>
-        <a href="ueber-mich.html">Über mich</a>
-        <a href="reviews.html" aria-current="page">Reviews</a>
-        <a href="portfolio.html">Portfolio</a>
-        <a href="dienstleistungen.html">Dienstleistungen</a>
-        <a href="braut-infos.html">Infos für die Braut</a>
-        <a href="kontakt.html">Kontakt</a>
-      </nav>
-
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
-        <span class="burger-lines" aria-hidden="true"></span> Menü
-      </button>
-
-      <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile Hauptnavigation">
-        <div class="mobile-menu-inner">
-          <a href="index.html">Home</a>
-          <a href="ueber-mich.html">Über mich</a>
-          <a href="reviews.html" aria-current="page">Reviews</a>
-          <a href="portfolio.html">Portfolio</a>
-          <a href="dienstleistungen.html">Dienstleistungen</a>
-          <a href="braut-infos.html">Infos für die Braut</a>
-          <a href="kontakt.html">Kontakt</a>
-        </div>
-      </nav>
+      <a class="logo-link" href="index.html" aria-label="Zur Startseite"><img class="logo" src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Logo_final-removebg-preview.png?raw=true" alt="sasatrumua Logo"></a>
+      <nav class="desktop-nav" aria-label="Hauptnavigation"><a href="index.html">Home</a><a href="ueber-mich.html">Über mich</a><a href="reviews.html" aria-current="page">Reviews</a><a href="portfolio.html">Portfolio</a><a href="dienstleistungen.html">Dienstleistungen</a><a href="braut-infos.html">Infos für die Braut</a><a href="kontakt.html">Kontakt</a></nav>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu"><span class="burger-lines" aria-hidden="true"></span> Menü</button>
+      <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile Hauptnavigation"><div class="mobile-menu-inner"><a href="index.html">Home</a><a href="ueber-mich.html">Über mich</a><a href="reviews.html" aria-current="page">Reviews</a><a href="portfolio.html">Portfolio</a><a href="dienstleistungen.html">Dienstleistungen</a><a href="braut-infos.html">Infos für die Braut</a><a href="kontakt.html">Kontakt</a></div></nav>
     </div>
   </header>
 
   <main>
     <section class="container">
-      <header class="page-intro reveal">
-        <h1>Das sagen meine Bräute 🤍</h1>
-      </header>
-
+      <header class="page-intro reveal"><h1>Das sagen meine Bräute 🤍</h1></header>
       <div class="reviews-grid" aria-label="Kundenstimmen">
-        <article class="review-card reveal">
-          <h2 class="review-name">Daniela</h2>
-          <p class="review-text">„Guten Morgen ☺️
+        <article class="review-card reveal"><h2 class="review-name">Daniela</h2><p class="review-text">„Guten Morgen ☺️
 Ich wollte dir sagen, wie glücklich ich gestern war/bin über deine Arbeit ❤️
 Es gab sooooo viele Komplimente! Dank dir! 😍😘
 Es waren alle begeistert 💕
-Nochmals vielen Dank ❤️“</p>
-        </article>
-
-        <article class="review-card reveal">
-          <h2 class="review-name">Corinna</h2>
-          <p class="review-text">„Guten Morgen liebe Sarah,
+Nochmals vielen Dank ❤️“</p></article>
+        <article class="review-card reveal"><h2 class="review-name">Corinna</h2><p class="review-text">„Guten Morgen liebe Sarah,
 ich hoffe, du hattest ein schönes Wochenende.
 Die Hochzeit war einfach traumhaft und magisch. 😍
 Die Locken haben super gehalten.
 Ich habe mit der Frisur geschlafen und hatte sie sogar am nächsten Tag noch. 😁
-Danke nochmal ❤️“</p>
-        </article>
-
-        <article class="review-card reveal">
-          <h2 class="review-name">Diana</h2>
-          <p class="review-text">„Die Frisur und das Make-up haben echt super gehalten, danke für deine tolle Arbeit, du hast einen wirklich tollen Job gemacht! 🤗“</p>
-        </article>
-
-        <article class="review-card reveal">
-          <h2 class="review-name">Angela</h2>
-          <p class="review-text">„Hey Sarah! Wir hatten einen richtig schönen Tag. Das Make-up und die Haare haben super gehalten. 😄👍
-Es war teilweise so warm mit dem Kleid, trotzdem war das Make-up an Ort und Stelle 😅“</p>
-        </article>
-
-        <article class="review-card reveal">
-          <h2 class="review-name">Franziska</h2>
-          <p class="review-text">„Hallöchen 😍
-Ja, es war einfach schön 😍 und dein Styling war perfekt. Danke nochmal. Meine Locken haben sogar bis Sonntagabend gehalten 😀🤭“</p>
-        </article>
-
-        <article class="review-card reveal">
-          <h2 class="review-name">Rebecca</h2>
-          <p class="review-text">„Hey Sarah, vielen Dank für das schöne Make-up. Das hat perfekt für den ganzen Tag trotz Regen gehalten.“</p>
-        </article>
-
-        <article class="review-card reveal">
-          <h2 class="review-name">Julia</h2>
-          <p class="review-text">„Dein Make-up war toll!! Habe sehr viele Komplimente bekommen und mich den ganzen Tag sehr wohl gefühlt!! Vielen lieben Dank noch mal!! Ganz toll 😊“</p>
-        </article>
-
-        <article class="review-card reveal">
-          <h2 class="review-name">Laura</h2>
-          <p class="review-text">„Vielen, vielen Dank nochmal!! Das Make-up ist großartig ☺️☺️
+Danke nochmal ❤️“</p></article>
+        <article class="review-card reveal"><h2 class="review-name">Diana</h2><p class="review-text">„Die Frisur und das Make-up haben echt super gehalten, danke für deine tolle Arbeit, du hast einen wirklich tollen Job gemacht! 🤗“</p></article>
+        <article class="review-card reveal"><h2 class="review-name">Angela</h2><p class="review-text">„Hey Sarah! Wir hatten einen richtig schönen Tag. Das Make-up und die Haare haben super gehalten. 😄👍
+Es war teilweise so warm mit dem Kleid, trotzdem war das Make-up an Ort und Stelle 😅“</p></article>
+        <article class="review-card reveal"><h2 class="review-name">Franziska</h2><p class="review-text">„Hallöchen 😍
+Ja, es war einfach schön 😍 und dein Styling war perfekt. Danke nochmal. Meine Locken haben sogar bis Sonntagabend gehalten 😀🤭“</p></article>
+        <article class="review-card reveal"><h2 class="review-name">Rebecca</h2><p class="review-text">„Hey Sarah, vielen Dank für das schöne Make-up. Das hat perfekt für den ganzen Tag trotz Regen gehalten.“</p></article>
+        <article class="review-card reveal"><h2 class="review-name">Julia</h2><p class="review-text">„Dein Make-up war toll!! Habe sehr viele Komplimente bekommen und mich den ganzen Tag sehr wohl gefühlt!! Vielen lieben Dank noch mal!! Ganz toll 😊“</p></article>
+        <article class="review-card reveal"><h2 class="review-name">Laura</h2><p class="review-text">„Vielen, vielen Dank nochmal!! Das Make-up ist großartig ☺️☺️
 Ich will mich gar nicht abschminken 😅🙈
-Hab noch einen schönen Abend :)“</p>
-        </article>
-
-        <article class="review-card reveal">
-          <h2 class="review-name">Sarah</h2>
-          <p class="review-text">„Ich kann Sarah nur weiterempfehlen. Sie ist sowohl menschlich angenehm als auch fachlich super. Sie hat sich sehr viel Zeit genommen, um den Look für meinen Hochzeitstag zu finden. Mit dem Ergebnis bin ich sehr zufrieden und es hat auch den ganzen Tag gehalten.“</p>
-        </article>
-
-        <article class="review-card reveal">
-          <h2 class="review-name">Natalie</h2>
-          <p class="review-text">„Liebe Sarah,
+Hab noch einen schönen Abend :)“</p></article>
+        <article class="review-card reveal"><h2 class="review-name">Sarah</h2><p class="review-text">„Ich kann Sarah nur weiterempfehlen. Sie ist sowohl menschlich angenehm als auch fachlich super. Sie hat sich sehr viel Zeit genommen, um den Look für meinen Hochzeitstag zu finden. Mit dem Ergebnis bin ich sehr zufrieden und es hat auch den ganzen Tag gehalten.“</p></article>
+        <article class="review-card reveal"><h2 class="review-name">Natalie</h2><p class="review-text">„Liebe Sarah,
 jetzt ist unsere Hochzeit einige Wochen her und wir konnten alles sacken lassen.
 Noch immer bin ich einfach nur begeistert, was du gezaubert hast 🥰
 Ich war noch nie so schön wie an diesem Tag!
 Auch deine entspannte, herzliche Art hat dazu beigetragen, dass ich mich rundum wohlgefühlt habe ☺️
-Eine ganz klare Weiterempfehlung an alle Bräute 🤍“</p>
-        </article>
+Eine ganz klare Weiterempfehlung an alle Bräute 🤍“</p></article>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div><a href="mailto:sasatrumua@web.de">sasatrumua@web.de</a></div>
-    <div class="footer-links">
-      <a href="impressum.html">Impressum</a>
-      <a href="datenschutz.html">Datenschutz</a>
-      <a href="agb.html">AGB</a>
-    </div>
-    <div>© 2022 von sasatrumua.</div>
-  </footer>
+  <footer><div><a href="mailto:sasatrumua@web.de">sasatrumua@web.de</a></div><div class="footer-links"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="agb.html">AGB</a></div><div>© 2022 von sasatrumua.</div></footer>
 
   <script>
-    const menuToggle = document.querySelector('.menu-toggle');
-    const mobileMenu = document.querySelector('.mobile-menu');
-
-    menuToggle.addEventListener('click', () => {
-      const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
-      menuToggle.setAttribute('aria-expanded', String(!isOpen));
-      mobileMenu.classList.toggle('open', !isOpen);
-    });
-
-    document.querySelectorAll('.mobile-menu a').forEach((link) => {
-      link.addEventListener('click', () => {
-        menuToggle.setAttribute('aria-expanded', 'false');
-        mobileMenu.classList.remove('open');
-      });
-    });
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: .1 });
-
-    document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
-
-    const dustLayer = document.querySelector('.gold-dust-layer');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (!reducedMotion && window.innerWidth > 620) {
-      let previousX = null;
-      let previousY = null;
-      let lastDust = 0;
-
-      function makeDust(x, y, quantity) {
-        for (let i = 0; i < quantity; i++) {
-          const dust = document.createElement('span');
-          dust.className = 'gold-dust';
-
-          const size = 1 + Math.random() * 2.6;
-          const angle = Math.random() * Math.PI * 2;
-          const distance = 4 + Math.random() * 25;
-          const driftX = Math.cos(angle) * distance;
-          const driftY = Math.sin(angle) * distance - 3 - Math.random() * 12;
-
-          dust.style.width = size + 'px';
-          dust.style.height = size + 'px';
-          dust.style.left = (x + (Math.random() - .5) * 10) + 'px';
-          dust.style.top = (y + (Math.random() - .5) * 10) + 'px';
-          dust.style.opacity = (.54 + Math.random() * .38).toFixed(2);
-          dustLayer.appendChild(dust);
-
-          requestAnimationFrame(() => {
-            dust.style.transition = 'transform 850ms cubic-bezier(.16,.84,.35,1), opacity 850ms ease';
-            dust.style.transform = `translate(calc(-50% + ${driftX}px), calc(-50% + ${driftY}px)) scale(${.62 + Math.random() * .75})`;
-            dust.style.opacity = '0';
-          });
-
-          window.setTimeout(() => dust.remove(), 890);
-        }
-      }
-
-      document.addEventListener('mousemove', (event) => {
-        const now = performance.now();
-        if (previousX !== null) {
-          const dx = event.clientX - previousX;
-          const dy = event.clientY - previousY;
-          const distance = Math.hypot(dx, dy);
-          const steps = Math.max(1, Math.ceil(distance / 7));
-
-          if (now - lastDust > 12 || distance > 2) {
-            for (let step = 0; step <= steps; step++) {
-              const progress = step / steps;
-              makeDust(previousX + dx * progress, previousY + dy * progress, 2 + Math.floor(Math.random() * 2));
-            }
-            lastDust = now;
-          }
-        } else {
-          makeDust(event.clientX, event.clientY, 4);
-        }
-
-        previousX = event.clientX;
-        previousY = event.clientY;
-      }, { passive: true });
-    }
+    const menuToggle=document.querySelector('.menu-toggle'); const mobileMenu=document.querySelector('.mobile-menu');
+    menuToggle.addEventListener('click',()=>{const isOpen=menuToggle.getAttribute('aria-expanded')==='true';menuToggle.setAttribute('aria-expanded',String(!isOpen));mobileMenu.classList.toggle('open',!isOpen);});
+    document.querySelectorAll('.mobile-menu a').forEach(link=>link.addEventListener('click',()=>{menuToggle.setAttribute('aria-expanded','false');mobileMenu.classList.remove('open');}));
+    const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible');}),{threshold:.1}); document.querySelectorAll('.reveal').forEach(element=>observer.observe(element));
+    const dustLayer=document.querySelector('.gold-dust-layer'); const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!reducedMotion&&window.innerWidth>620){let previousX=null,previousY=null,lastDust=0;function makeDust(x,y,quantity){for(let i=0;i<quantity;i++){const dust=document.createElement('span');dust.className='gold-dust';const size=1+Math.random()*2.6,angle=Math.random()*Math.PI*2,distance=4+Math.random()*25,driftX=Math.cos(angle)*distance,driftY=Math.sin(angle)*distance-3-Math.random()*12;dust.style.width=size+'px';dust.style.height=size+'px';dust.style.left=(x+(Math.random()-.5)*10)+'px';dust.style.top=(y+(Math.random()-.5)*10)+'px';dust.style.opacity=(.54+Math.random()*.38).toFixed(2);dustLayer.appendChild(dust);requestAnimationFrame(()=>{dust.style.transition='transform 850ms cubic-bezier(.16,.84,.35,1), opacity 850ms ease';dust.style.transform=`translate(calc(-50% + ${driftX}px), calc(-50% + ${driftY}px)) scale(${.62+Math.random()*.75})`;dust.style.opacity='0';});window.setTimeout(()=>dust.remove(),890);}}document.addEventListener('mousemove',event=>{const now=performance.now();if(previousX!==null){const dx=event.clientX-previousX,dy=event.clientY-previousY,distance=Math.hypot(dx,dy),steps=Math.max(1,Math.ceil(distance/7));if(now-lastDust>12||distance>2){for(let step=0;step<=steps;step++){const progress=step/steps;makeDust(previousX+dx*progress,previousY+dy*progress,2+Math.floor(Math.random()*2));}lastDust=now;}}else{makeDust(event.clientX,event.clientY,4);}previousX=event.clientX;previousY=event.clientY;},{passive:true});}
   </script>
 </body>
 </html>

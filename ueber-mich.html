@@ -58,6 +58,15 @@
       margin: 0 auto;
     }
 
+    .logo-link {
+      display: inline-block;
+    }
+
+    .logo-link:focus-visible {
+      outline: 1px solid var(--gold);
+      outline-offset: 5px;
+    }
+
     .logo {
       width: 116px;
       margin: 0 auto 5px;
@@ -359,7 +368,9 @@
 
   <header class="site-header">
     <div class="header-inner">
-      <img class="logo" src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Logo_final-removebg-preview.png?raw=true" alt="sasatrumua Logo">
+      <a class="logo-link" href="index.html" aria-label="Zur Startseite">
+        <img class="logo" src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Logo_final-removebg-preview.png?raw=true" alt="sasatrumua Logo">
+      </a>
 
       <nav class="desktop-nav" aria-label="Hauptnavigation">
         <a href="index.html">Home</a>

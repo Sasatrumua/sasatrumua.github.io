@@ -18,9 +18,10 @@
     a { color:inherit; text-decoration:none; }
     img { display:block; max-width:100%; }
     .container { width:min(calc(100% - 64px),1180px); margin:0 auto; }
+
     .site-header { width:100%; padding:14px 0 11px; text-align:center; background:rgba(250,248,244,.28); }
-    .header-inner { width:min(calc(100% - 64px),1440px); margin:0 auto; }
-    .logo-link { display:inline-block; }
+    .header-inner { width:min(calc(100% - 64px),1440px); margin:0 auto; text-align:center; }
+    .logo-link { display:inline-block; line-height:0; }
     .logo-link:focus-visible { outline:1px solid var(--gold); outline-offset:5px; }
     .logo { width:116px; margin:0 auto 5px; }
     .desktop-nav { display:flex; justify-content:center; align-items:center; gap:19px; padding:3px 0 8px; font-size:10px; font-weight:500; letter-spacing:.18em; text-transform:uppercase; }
@@ -28,12 +29,14 @@
     .desktop-nav a::after { content:""; position:absolute; left:50%; bottom:0; width:0; height:1px; background:var(--gold); transform:translateX(-50%); transition:width .24s ease; }
     .desktop-nav a:hover::after,.desktop-nav a:focus-visible::after,.desktop-nav a[aria-current="page"]::after { width:100%; }
     .menu-toggle,.mobile-menu { display:none; }
+
     main { padding:70px 0 84px; }
     .intro { max-width:790px; margin:0 auto 44px; text-align:center; }
     .intro h1 { margin:0; font-family:var(--script); font-size:clamp(55px,6vw,84px); font-weight:400; line-height:.9; }
     .intro::after { content:""; display:block; width:54px; height:1px; margin:23px auto 0; background:var(--gold); }
     .intro p { margin:27px auto 0; color:var(--muted); font-size:14px; font-weight:300; line-height:1.85; }
     .intro p + p { margin-top:17px; }
+
     .services-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:32px 28px; align-items:stretch; }
     .centered-services { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px; width:calc((100% - 56px) / 3 * 2 + 28px); margin:32px auto 0; }
     .service-card { display:flex; flex-direction:column; min-height:448px; padding:27px 25px 28px; border:1px solid var(--line); background:var(--card); text-align:center; box-shadow:0 10px 26px rgba(82,61,39,.045); }
@@ -54,27 +57,40 @@
     .brows-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px; }
     .brows-grid .service-card { min-height:400px; }
     .brows-grid .price-list { margin-top:22px; }
+
     footer { width:min(calc(100% - 64px),1180px); margin:0 auto; padding:28px 0 23px; border-top:1px solid var(--line); text-align:center; color:var(--muted); font-size:10px; font-weight:400; letter-spacing:.1em; text-transform:uppercase; }
     .footer-links { display:flex; justify-content:center; flex-wrap:wrap; gap:13px; margin:12px 0; }
     .reveal { opacity:0; transform:translateY(22px); transition:opacity .76s ease,transform .76s ease; }
     .reveal.visible { opacity:1; transform:none; }
-    @media (max-width:920px) { .header-inner,.container,footer { width:min(calc(100% - 34px),760px); } .services-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; } .centered-services { width:100%; gap:22px; } }
+
+    @media (max-width:920px) {
+      .header-inner,.container,footer { width:min(calc(100% - 34px),760px); }
+      .services-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; }
+      .centered-services { width:100%; gap:22px; }
+    }
+
     @media (max-width:620px) {
       .header-inner,.container,footer { width:min(calc(100% - 28px),1440px); }
       body { background-image:linear-gradient(rgba(248,245,240,.03),rgba(248,245,240,.03)),url("https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Marmor.png?raw=true"); background-repeat:no-repeat,no-repeat; background-position:center top,center top; background-size:cover,auto auto; background-attachment:scroll,scroll; }
-      .site-header { padding-top:12px; background:transparent; } .logo { width:102px; margin-bottom:0; } .desktop-nav { display:none; }
-      .menu-toggle { display:inline-flex; align-items:center; justify-content:center; gap:9px; margin:7px 0 9px; padding:9px 13px; border:1px solid rgba(83,65,52,.24); border-radius:999px; color:var(--ink); background:rgba(255,255,255,.14); font-family:var(--clean); font-size:10px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; cursor:pointer; }
+      .site-header { padding:12px 0 10px; background:transparent; }
+      .header-inner { display:flex; flex-direction:column; align-items:center; width:100%; }
+      .logo-link { display:block; width:102px; margin:0 auto; }
+      .logo { width:102px; margin:0; }
+      .desktop-nav { display:none; }
+      .menu-toggle { display:inline-flex; align-items:center; justify-content:center; gap:9px; align-self:center; margin:10px auto 2px; padding:9px 13px; border:1px solid rgba(83,65,52,.24); border-radius:999px; color:var(--ink); background:rgba(255,255,255,.14); font-family:var(--clean); font-size:10px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; cursor:pointer; }
       .burger-lines,.burger-lines::before,.burger-lines::after { display:block; width:17px; height:1px; background:var(--ink); transition:transform .22s ease; }
       .burger-lines { position:relative; } .burger-lines::before,.burger-lines::after { content:""; position:absolute; left:0; } .burger-lines::before { top:-5px; } .burger-lines::after { top:5px; }
       .menu-toggle[aria-expanded="true"] .burger-lines { background:transparent; } .menu-toggle[aria-expanded="true"] .burger-lines::before { transform:translateY(5px) rotate(45deg); } .menu-toggle[aria-expanded="true"] .burger-lines::after { transform:translateY(-5px) rotate(-45deg); }
-      .mobile-menu { display:grid; grid-template-rows:0fr; overflow:hidden; margin:0 auto; transition:grid-template-rows .26s ease; } .mobile-menu.open { grid-template-rows:1fr; } .mobile-menu-inner { min-height:0; display:grid; }
-      .mobile-menu a { padding:13px 10px; font-size:12px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; border-bottom:1px solid rgba(68,53,43,.12); } .mobile-menu a:last-child { border-bottom:0; }
+      .mobile-menu { display:grid; grid-template-rows:0fr; width:100%; overflow:hidden; margin:0; transition:grid-template-rows .26s ease; }
+      .mobile-menu.open { grid-template-rows:1fr; } .mobile-menu-inner { min-height:0; display:grid; width:min(calc(100% - 28px),420px); margin:0 auto; }
+      .mobile-menu a { padding:13px 10px; font-size:12px; font-weight:500; letter-spacing:.12em; text-align:center; text-transform:uppercase; border-bottom:1px solid rgba(68,53,43,.12); } .mobile-menu a:last-child { border-bottom:0; }
       main { padding:52px 0 64px; } .intro { margin-bottom:34px; } .intro h1 { font-size:62px; } .intro p { font-size:13px; line-height:1.8; }
       .services-grid,.centered-services,.brows-grid { grid-template-columns:1fr; gap:18px; } .centered-services { width:100%; margin-top:18px; }
       .service-card,.brows-grid .service-card { min-height:auto; padding:28px 25px 27px; } .service-image { width:142px; height:142px; } .service-card h2 { font-size:16px; } .service-price { font-size:34px; } .service-details { font-size:12px; }
       .price-list { width:min(100%,270px); } .price-label { font-size:18px; } .price-value { font-size:21px; }
       .brows-section { margin-top:40px; padding-top:36px; } .brows-section h2 { margin-bottom:25px; font-size:47px; }
     }
+
     @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition:none!important; animation:none!important; } .reveal { opacity:1; transform:none; } }
   </style>
 </head>
@@ -123,7 +139,8 @@
   <footer><div><a href="mailto:sasatrumua@web.de">sasatrumua@web.de</a></div><div class="footer-links"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="agb.html">AGB</a></div><div>© 2022 von sasatrumua.</div></footer>
 
   <script>
-    const menuToggle=document.querySelector('.menu-toggle'); const mobileMenu=document.querySelector('.mobile-menu');
+    const menuToggle=document.querySelector('.menu-toggle');
+    const mobileMenu=document.querySelector('.mobile-menu');
     menuToggle.addEventListener('click',()=>{const isOpen=menuToggle.getAttribute('aria-expanded')==='true';menuToggle.setAttribute('aria-expanded',String(!isOpen));mobileMenu.classList.toggle('open',!isOpen);});
     document.querySelectorAll('.mobile-menu a').forEach(link=>link.addEventListener('click',()=>{menuToggle.setAttribute('aria-expanded','false');mobileMenu.classList.remove('open');}));
     const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible');}),{threshold:.1});

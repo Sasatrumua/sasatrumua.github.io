@@ -24,11 +24,7 @@
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
-    /*
-      Marmorbild nur EINMAL über die komplette Seite:
-      kein Repeat, kein zweites Bild und damit kein sichtbarer Übergang.
-      Der helle Schleier liegt über dem Bild, damit alle Inhalte klar lesbar bleiben.
-    */
+    /* Ein echtes Marmorbild: einmalig, ohne Wiederholung und ohne Übergang. */
     body {
       margin: 0;
       overflow-x: hidden;
@@ -36,7 +32,7 @@
       font-family: var(--clean);
       background-color: #f3eee7;
       background-image:
-        linear-gradient(rgba(248, 245, 240, .37), rgba(248, 245, 240, .37)),
+        linear-gradient(rgba(248, 245, 240, .30), rgba(248, 245, 240, .30)),
         url("https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Marmor.png?raw=true");
       background-repeat: no-repeat, no-repeat;
       background-position: center top, center top;
@@ -57,7 +53,7 @@
       margin: 0;
       padding: 14px 0 11px;
       text-align: center;
-      background: rgba(250, 248, 244, .50);
+      background: rgba(250, 248, 244, .37);
     }
 
     .header-inner {
@@ -111,7 +107,7 @@
       width: 100%;
       margin: 0;
       padding: 40px 24px 36px;
-      background: rgba(250, 248, 244, .29);
+      background: rgba(250, 248, 244, .18);
       text-align: center;
     }
 
@@ -124,10 +120,7 @@
       line-height: 1.04;
     }
 
-    .quote-row {
-      display: block;
-      white-space: normal;
-    }
+    .quote-row { display: block; white-space: normal; }
 
     .veil-word {
       display: inline-block;
@@ -138,10 +131,7 @@
       will-change: opacity, filter, transform;
     }
 
-    .veil-space {
-      display: inline-block;
-      width: .28em;
-    }
+    .veil-space { display: inline-block; width: .28em; }
 
     .quote-author {
       display: block;
@@ -192,7 +182,7 @@
     }
 
     .section-heading {
-      padding: 62px 0 36px;
+      padding: 62px 0 38px;
       text-align: center;
     }
 
@@ -217,19 +207,23 @@
 
     .services {
       display: grid;
-      gap: 84px;
-      padding-bottom: 80px;
+      gap: 92px;
+      padding-bottom: 84px;
     }
 
+    /*
+      Ruhigeres Bildformat: nicht mehr sehr breit und flach.
+      Jede Leistung bekommt ein bewusstes Hochformat, damit mehr vom Motiv sichtbar bleibt.
+    */
     .service {
       display: grid;
-      grid-template-columns: minmax(0, 1.45fr) minmax(260px, .55fr);
-      gap: 54px;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, .58fr);
+      gap: 58px;
       align-items: center;
     }
 
     .service.reverse {
-      grid-template-columns: minmax(260px, .55fr) minmax(0, 1.45fr);
+      grid-template-columns: minmax(300px, .58fr) minmax(0, 1fr);
     }
 
     .service.reverse .service-image { order: 2; }
@@ -242,10 +236,16 @@
 
     .service-image {
       position: relative;
-      height: 520px;
+      width: min(100%, 760px);
+      aspect-ratio: 4 / 3;
+      height: auto;
       overflow: hidden;
       background: #d8cec4;
-      box-shadow: 0 12px 36px rgba(82, 61, 39, .08);
+      box-shadow: 0 14px 38px rgba(82, 61, 39, .09);
+    }
+
+    .service.reverse .service-image {
+      justify-self: end;
     }
 
     .service-image img {
@@ -331,7 +331,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       margin-bottom: 18px;
-      background: rgba(255, 255, 255, .14);
+      background: rgba(255, 255, 255, .10);
       box-shadow: 0 12px 34px rgba(82, 61, 39, .05);
     }
 
@@ -395,7 +395,7 @@
       transform: none;
     }
 
-    /* Feiner, dichter Goldstaub: kleine Partikel statt großer Sterne. */
+    /* Feiner, gut sichtbarer Goldstaub: bereits bei langsamem Bewegen aktiv. */
     .gold-dust-layer {
       position: fixed;
       inset: 0;
@@ -411,8 +411,8 @@
       border-radius: 50%;
       pointer-events: none;
       opacity: 0;
-      background: radial-gradient(circle, rgba(255,255,255,1) 0 15%, rgba(255,232,174,.98) 28%, rgba(207,157,71,.92) 60%, rgba(177,124,45,0) 78%);
-      box-shadow: 0 0 3px rgba(255,244,210,.92), 0 0 7px rgba(207,157,71,.55);
+      background: radial-gradient(circle, rgba(255,255,255,1) 0 16%, rgba(255,234,183,1) 28%, rgba(211,164,78,.95) 60%, rgba(177,124,45,0) 79%);
+      box-shadow: 0 0 3px rgba(255,247,221,.98), 0 0 8px rgba(213,165,79,.65);
       transform: translate(-50%, -50%) scale(.2);
       will-change: transform, opacity;
     }
@@ -445,21 +445,38 @@
         margin-right: auto;
       }
 
+      .service-image,
+      .service.reverse .service-image {
+        width: min(100%, 720px);
+        justify-self: start;
+      }
+
       .service-copy { padding: 0 6px; }
-      .service-image { height: 470px; }
     }
 
     @media (max-width: 620px) {
       .header-inner,
       .container { width: min(calc(100% - 28px), 1440px); }
 
-      /* Auf Mobil: ein natürlicher Bildausschnitt, ebenfalls ohne Wiederholung. */
+      /*
+        Mobil: der Marmor bleibt sichtbar.
+        Der Schleier wird hier deutlich transparenter, damit die goldenen Adern nicht verschwinden.
+      */
       body {
-        background-size: cover, auto 100%;
+        background-image:
+          linear-gradient(rgba(248, 245, 240, .14), rgba(248, 245, 240, .14)),
+          url("https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Marmor.png?raw=true");
+        background-repeat: no-repeat, no-repeat;
+        background-position: center top, center top;
+        background-size: auto 100%, auto 100%;
         background-attachment: scroll, scroll;
       }
 
-      .site-header { padding-top: 12px; }
+      .site-header {
+        padding-top: 12px;
+        background: rgba(250, 248, 244, .24);
+      }
+
       .logo { width: 102px; margin-bottom: 0; }
       .desktop-nav { display: none; }
 
@@ -473,7 +490,7 @@
         border: 1px solid rgba(83, 65, 52, .2);
         border-radius: 999px;
         color: var(--ink);
-        background: rgba(255, 255, 255, .48);
+        background: rgba(255, 255, 255, .40);
         font-family: var(--clean);
         font-size: 10px;
         font-weight: 500;
@@ -529,7 +546,12 @@
       }
 
       .mobile-menu a:last-child { border-bottom: 0; }
-      .quote-band { padding: 31px 18px 29px; }
+
+      .quote-band {
+        padding: 31px 18px 29px;
+        background: rgba(250, 248, 244, .10);
+      }
+
       .quote { font-size: clamp(38px, 10vw, 54px); line-height: 1.03; }
       .quote-author { margin-top: 15px; font-size: 9px; letter-spacing: .15em; animation-delay: 3.1s; }
       .pinsel-area { height: 200px; }
@@ -538,7 +560,15 @@
       .contact-copy h2 { font-size: 28px; letter-spacing: .07em; }
       .section-heading p { font-size: 32px; }
       .services { gap: 54px; }
-      .service-image { height: 440px; }
+
+      /* Mobil bewusst kompakter und näher am Quadrat, damit Motive nicht beschnitten wirken. */
+      .service-image,
+      .service.reverse .service-image {
+        width: 100%;
+        aspect-ratio: 1 / 1.06;
+        justify-self: stretch;
+      }
+
       .image-text { right: 20px; bottom: 18px; left: 20px; }
       .image-text h3 { font-size: clamp(45px, 15vw, 63px); line-height: .86; }
       .image-text h3.long-title { max-width: 88%; font-size: clamp(39px, 12.5vw, 53px); line-height: .9; }
@@ -726,43 +756,66 @@
     document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
 
     const dustLayer = document.querySelector('.gold-dust-layer');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.innerWidth > 620) {
+    if (!reducedMotion && window.innerWidth > 620) {
+      let previousX = null;
+      let previousY = null;
       let lastDust = 0;
 
-      document.addEventListener('mousemove', (event) => {
-        const now = performance.now();
-        if (now - lastDust < 18) return;
-        lastDust = now;
-
-        const count = 4 + Math.floor(Math.random() * 4);
-
-        for (let i = 0; i < count; i++) {
+      function makeDust(x, y, quantity) {
+        for (let i = 0; i < quantity; i++) {
           const dust = document.createElement('span');
           dust.className = 'gold-dust';
 
-          const size = 1.2 + Math.random() * 3.1;
+          const size = 1 + Math.random() * 2.6;
           const angle = Math.random() * Math.PI * 2;
-          const distance = 5 + Math.random() * 23;
+          const distance = 4 + Math.random() * 25;
           const driftX = Math.cos(angle) * distance;
-          const driftY = Math.sin(angle) * distance - 2 - Math.random() * 11;
+          const driftY = Math.sin(angle) * distance - 3 - Math.random() * 12;
 
           dust.style.width = size + 'px';
           dust.style.height = size + 'px';
-          dust.style.left = (event.clientX + (Math.random() - .5) * 10) + 'px';
-          dust.style.top = (event.clientY + (Math.random() - .5) * 10) + 'px';
-          dust.style.opacity = (.48 + Math.random() * .42).toFixed(2);
+          dust.style.left = (x + (Math.random() - .5) * 10) + 'px';
+          dust.style.top = (y + (Math.random() - .5) * 10) + 'px';
+          dust.style.opacity = (.54 + Math.random() * .38).toFixed(2);
 
           dustLayer.appendChild(dust);
 
           requestAnimationFrame(() => {
-            dust.style.transition = 'transform 760ms cubic-bezier(.16,.84,.35,1), opacity 760ms ease';
-            dust.style.transform = `translate(calc(-50% + ${driftX}px), calc(-50% + ${driftY}px)) scale(${.65 + Math.random() * .7})`;
+            dust.style.transition = 'transform 850ms cubic-bezier(.16,.84,.35,1), opacity 850ms ease';
+            dust.style.transform = `translate(calc(-50% + ${driftX}px), calc(-50% + ${driftY}px)) scale(${.62 + Math.random() * .75})`;
             dust.style.opacity = '0';
           });
 
-          window.setTimeout(() => dust.remove(), 800);
+          window.setTimeout(() => dust.remove(), 890);
         }
+      }
+
+      document.addEventListener('mousemove', (event) => {
+        const now = performance.now();
+
+        if (previousX !== null) {
+          const dx = event.clientX - previousX;
+          const dy = event.clientY - previousY;
+          const distance = Math.hypot(dx, dy);
+
+          /* Auch langsame Bewegungen bekommen Staub: entlang der gesamten Cursor-Spur. */
+          const steps = Math.max(1, Math.ceil(distance / 7));
+
+          if (now - lastDust > 12 || distance > 2) {
+            for (let step = 0; step <= steps; step++) {
+              const progress = step / steps;
+              makeDust(previousX + dx * progress, previousY + dy * progress, 2 + Math.floor(Math.random() * 2));
+            }
+            lastDust = now;
+          }
+        } else {
+          makeDust(event.clientX, event.clientY, 4);
+        }
+
+        previousX = event.clientX;
+        previousY = event.clientY;
       }, { passive: true });
     }
   </script>

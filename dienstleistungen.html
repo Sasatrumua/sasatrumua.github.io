@@ -14,11 +14,15 @@
     :root { --ink:#292522; --muted:#71675f; --gold:#b58a43; --line:rgba(99,77,49,.15); --card:rgba(255,255,255,.20); --clean:"DM Sans",Arial,sans-serif; --script:"Alex Brush",cursive; }
     * { box-sizing:border-box; }
     html { scroll-behavior:smooth; }
-    body { margin:0; overflow-x:hidden; color:var(--ink); font-family:var(--clean); background-color:#f3eee7; background-image:linear-gradient(rgba(248,245,240,.18),rgba(248,245,240,.18)),url("https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Marmor.png?raw=true"); background-repeat:no-repeat,no-repeat; background-position:center top,center top; background-size:cover,100% 100%; background-attachment:fixed,fixed; }
+
+    /* Ein großer, fester Marmorhintergrund: kein Kacheln und kein beiger Bereich beim Scrollen. */
+    body { margin:0; overflow-x:hidden; color:var(--ink); font-family:var(--clean); background:#f3eee7; }
+    body::before { content:""; position:fixed; z-index:-2; inset:0; background:url("https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Marmor.png?raw=true") center center / cover no-repeat; pointer-events:none; }
+    body::after { content:""; position:fixed; z-index:-1; inset:0; background:rgba(248,245,240,.12); pointer-events:none; }
+
     a { color:inherit; text-decoration:none; }
     img { display:block; max-width:100%; }
     .container { width:min(calc(100% - 64px),1180px); margin:0 auto; }
-
     .site-header { width:100%; padding:14px 0 11px; text-align:center; background:rgba(250,248,244,.28); }
     .header-inner { width:min(calc(100% - 64px),1440px); margin:0 auto; text-align:center; }
     .logo-link { display:inline-block; line-height:0; }
@@ -57,24 +61,17 @@
     .brows-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px; }
     .brows-grid .service-card { min-height:400px; }
     .brows-grid .price-list { margin-top:22px; }
-
     footer { width:min(calc(100% - 64px),1180px); margin:0 auto; padding:28px 0 23px; border-top:1px solid var(--line); text-align:center; color:var(--muted); font-size:10px; font-weight:400; letter-spacing:.1em; text-transform:uppercase; }
     .footer-links { display:flex; justify-content:center; flex-wrap:wrap; gap:13px; margin:12px 0; }
     .reveal { opacity:0; transform:translateY(22px); transition:opacity .76s ease,transform .76s ease; }
     .reveal.visible { opacity:1; transform:none; }
 
-    @media (max-width:920px) {
-      .header-inner,.container,footer { width:min(calc(100% - 34px),760px); }
-      .services-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; }
-      .centered-services { width:100%; gap:22px; }
-    }
-
+    @media (max-width:920px) { .header-inner,.container,footer { width:min(calc(100% - 34px),760px); } .services-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; } .centered-services { width:100%; gap:22px; } }
     @media (max-width:620px) {
-      .header-inner,.container,footer { width:min(calc(100% - 28px),1440px); }
-      body { background-image:linear-gradient(rgba(248,245,240,.03),rgba(248,245,240,.03)),url("https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Marmor.png?raw=true"); background-repeat:no-repeat,no-repeat; background-position:center top,center top; background-size:cover,auto auto; background-attachment:scroll,scroll; }
+      .container,footer { width:min(calc(100% - 28px),1440px); }
       .site-header { padding:12px 0 10px; background:transparent; }
-      .header-inner { display:flex; flex-direction:column; align-items:center; width:100%; }
-      .logo-link { display:block; width:102px; margin:0 auto; }
+      .header-inner { display:flex; flex-direction:column; align-items:center; width:100%; margin:0; text-align:center; }
+      .logo-link { display:block; width:102px; margin:0 auto; line-height:0; }
       .logo { width:102px; margin:0; }
       .desktop-nav { display:none; }
       .menu-toggle { display:inline-flex; align-items:center; justify-content:center; gap:9px; align-self:center; margin:10px auto 2px; padding:9px 13px; border:1px solid rgba(83,65,52,.24); border-radius:999px; color:var(--ink); background:rgba(255,255,255,.14); font-family:var(--clean); font-size:10px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; cursor:pointer; }
@@ -90,7 +87,6 @@
       .price-list { width:min(100%,270px); } .price-label { font-size:18px; } .price-value { font-size:21px; }
       .brows-section { margin-top:40px; padding-top:36px; } .brows-section h2 { margin-bottom:25px; font-size:47px; }
     }
-
     @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition:none!important; animation:none!important; } .reveal { opacity:1; transform:none; } }
   </style>
 </head>

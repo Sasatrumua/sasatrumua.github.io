@@ -367,4 +367,154 @@
         <a href="reviews.html">Reviews</a>
         <a href="portfolio.html">Portfolio</a>
         <a href="dienstleistungen.html">Dienstleistungen</a>
-        <a href="braut-
+        <a href="braut-infos.html">Infos für die Braut</a>
+        <a href="kontakt.html">Kontakt</a>
+      </nav>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="burger-lines" aria-hidden="true"></span> Menü
+      </button>
+
+      <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile Hauptnavigation">
+        <div class="mobile-menu-inner">
+          <a href="index.html">Home</a>
+          <a href="ueber-mich.html">Über mich</a>
+          <a href="reviews.html">Reviews</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="dienstleistungen.html">Dienstleistungen</a>
+          <a href="braut-infos.html">Infos für die Braut</a>
+          <a href="kontakt.html">Kontakt</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="container">
+      <header class="page-intro reveal">
+        <h1>Über mich</h1>
+      </header>
+
+      <figure class="about-photo reveal">
+        <img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Sasa%20Messebild.jpg?raw=true" alt="Sarah Strauss, Make-up Artist und Hairstylist">
+      </figure>
+
+      <article class="about-copy reveal">
+        <p>2017 habe ich mich entschieden, meiner Leidenschaft für Make-up nachzugehen. An einer international anerkannten Schule absolvierte ich meine Ausbildung zur Make-up Artist und Hairstylist mit sehr guten Leistungen.</p>
+
+        <p>Direkt danach durfte ich an der Seite einer renommierten Stylistin wertvolle Erfahrungen für Film und Fernsehen sammeln. Diese Zeit hat meinen Blick für Details, unterschiedliche Looks und die besondere Wirkung eines stimmigen Stylings geprägt.</p>
+
+        <p>Schon bald wurde mir klar: Meine größte Leidenschaft ist das Brautstyling. Seitdem habe ich mich darauf spezialisiert, Bräute an ihrem großen Tag mit einem Look zu begleiten, der sich ganz nach ihnen anfühlt.</p>
+
+        <p class="highlight">Natürlich. Individuell. Ganz du.</p>
+
+        <p>Mir ist wichtig, deine natürliche Schönheit zu unterstreichen – ohne dich zu verändern. Deshalb gibt es bei mir kein Styling von der Stange: Wir sprechen offen über deine Wünsche und Vorstellungen und entwickeln gemeinsam einen Look, in dem du dich wohl, schön und ganz du selbst fühlst.</p>
+
+        <p>Eine entspannte, herzliche Atmosphäre gehört für mich genauso dazu wie Sorgfalt und Qualität. Ich bilde mich regelmäßig weiter, verfolge neue Techniken und Trends und wähle meine Produkte bewusst aus – für ein Styling, das nicht nur wunderschön aussieht.</p>
+
+        <p class="wedding-quote">Es ist für mich immer wieder etwas Besonderes,<br>Teil einer Hochzeit sein zu dürfen.</p>
+
+        <p class="brands">Ich arbeite unter anderem mit Produkten von Estée Lauder, MAC, Fenty Beauty, Charlotte Tilbury, L’Oréal, GHD, TIGI und Newsha.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <div><a href="mailto:sasatrumua@web.de">sasatrumua@web.de</a></div>
+    <div class="footer-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="agb.html">AGB</a>
+    </div>
+    <div>© 2022 von sasatrumua.</div>
+  </footer>
+
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mobileMenu = document.querySelector('.mobile-menu');
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', String(!isOpen));
+      mobileMenu.classList.toggle('open', !isOpen);
+    });
+
+    document.querySelectorAll('.mobile-menu a').forEach((link) => {
+      link.addEventListener('click', () => {
+        menuToggle.setAttribute('aria-expanded', 'false');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: .12 });
+
+    document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+
+    const dustLayer = document.querySelector('.gold-dust-layer');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!reducedMotion && window.innerWidth > 620) {
+      let previousX = null;
+      let previousY = null;
+      let lastDust = 0;
+
+      function makeDust(x, y, quantity) {
+        for (let i = 0; i < quantity; i++) {
+          const dust = document.createElement('span');
+          dust.className = 'gold-dust';
+
+          const size = 1 + Math.random() * 2.6;
+          const angle = Math.random() * Math.PI * 2;
+          const distance = 4 + Math.random() * 25;
+          const driftX = Math.cos(angle) * distance;
+          const driftY = Math.sin(angle) * distance - 3 - Math.random() * 12;
+
+          dust.style.width = size + 'px';
+          dust.style.height = size + 'px';
+          dust.style.left = (x + (Math.random() - .5) * 10) + 'px';
+          dust.style.top = (y + (Math.random() - .5) * 10) + 'px';
+          dust.style.opacity = (.54 + Math.random() * .38).toFixed(2);
+
+          dustLayer.appendChild(dust);
+
+          requestAnimationFrame(() => {
+            dust.style.transition = 'transform 850ms cubic-bezier(.16,.84,.35,1), opacity 850ms ease';
+            dust.style.transform = `translate(calc(-50% + ${driftX}px), calc(-50% + ${driftY}px)) scale(${.62 + Math.random() * .75})`;
+            dust.style.opacity = '0';
+          });
+
+          window.setTimeout(() => dust.remove(), 890);
+        }
+      }
+
+      document.addEventListener('mousemove', (event) => {
+        const now = performance.now();
+
+        if (previousX !== null) {
+          const dx = event.clientX - previousX;
+          const dy = event.clientY - previousY;
+          const distance = Math.hypot(dx, dy);
+          const steps = Math.max(1, Math.ceil(distance / 7));
+
+          if (now - lastDust > 12 || distance > 2) {
+            for (let step = 0; step <= steps; step++) {
+              const progress = step / steps;
+              makeDust(previousX + dx * progress, previousY + dy * progress, 2 + Math.floor(Math.random() * 2));
+            }
+            lastDust = now;
+          }
+        } else {
+          makeDust(event.clientX, event.clientY, 4);
+        }
+
+        previousX = event.clientX;
+        previousY = event.clientY;
+      }, { passive: true });
+    }
+  </script>
+</body>
+</html>

@@ -8,88 +8,90 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
-    :root { --ink:#292522; --muted:#71675f; --accent:#aa9280; --line:rgba(68,53,43,.12); --serif:"Cormorant Garamond",Georgia,serif; --sans:"Inter",Arial,sans-serif; --script:"Allura",cursive; }
+    :root { --ink:#292522; --muted:#71675f; --accent:#aa9280; --line:rgba(68,53,43,.12); --serif:"Cormorant Garamond",Georgia,serif; --clean:"DM Sans",Arial,sans-serif; --script:"Allura",cursive; }
     * { box-sizing:border-box; }
     html { scroll-behavior:smooth; }
-    body { margin:0; overflow-x:hidden; color:var(--ink); font-family:var(--sans); background:#f4f0eb; }
+    body { margin:0; overflow-x:hidden; color:var(--ink); font-family:var(--clean); background:#f4f0eb; }
     a { color:inherit; text-decoration:none; }
     img { display:block; max-width:100%; }
     .container { width:min(calc(100% - 64px),1440px); margin:0 auto; }
-
-    .site-header { width:100%; margin:0; padding:18px 0 12px; text-align:center; background:#f4f0eb; }
+    .site-header { width:100%; margin:0; padding:14px 0 11px; text-align:center; background:#f4f0eb; }
     .header-inner { width:min(calc(100% - 64px),1440px); margin:0 auto; }
-
-    /* Logo bewusst etwas größer, ohne den Header unnötig hoch zu machen. */
-    .logo { width:96px; margin:0 auto 9px; }
-
-    .desktop-nav { display:flex; justify-content:center; align-items:center; gap:18px; padding:3px 0 8px; font-size:11px; letter-spacing:.025em; }
+    .logo { width:116px; margin:0 auto 5px; }
+    .desktop-nav { display:flex; justify-content:center; align-items:center; gap:19px; padding:3px 0 8px; font-family:var(--clean); font-size:10px; font-weight:500; letter-spacing:.18em; text-transform:uppercase; }
     .desktop-nav a { position:relative; padding:4px 0; white-space:nowrap; }
     .desktop-nav a::after { content:""; position:absolute; left:50%; bottom:0; width:0; height:1px; background:var(--accent); transform:translateX(-50%); transition:width .24s ease; }
-    .desktop-nav a:hover::after, .desktop-nav a:focus-visible::after { width:100%; }
-    .menu-toggle, .mobile-menu { display:none; }
+    .desktop-nav a:hover::after,.desktop-nav a:focus-visible::after { width:100%; }
+    .menu-toggle,.mobile-menu { display:none; }
 
     .quote-band { width:100%; margin:0; padding:40px 24px 36px; background:#f4f0eb; text-align:center; }
-    .quote { max-width:1060px; margin:0 auto; color:#292522; font-family:var(--script); font-size:clamp(42px,4.8vw,68px); line-height:1.04; }
-    .quote-line { display:block; opacity:0; filter:blur(5px); transform:translateY(13px); animation:quoteAppear .85s cubic-bezier(.22,1,.36,1) forwards; }
-    .quote-line:nth-child(1) { animation-delay:.18s; }
-    .quote-line:nth-child(2) { animation-delay:.76s; }
-    .quote-line:nth-child(3) { animation-delay:1.32s; }
-    .quote-author { margin-top:12px; font-size:.72em; }
-    @keyframes quoteAppear { to { opacity:1; filter:blur(0); transform:translateY(0); } }
+    .quote { max-width:1080px; margin:0 auto; color:#292522; font-family:var(--script); font-size:clamp(42px,4.8vw,68px); line-height:1.04; }
+    .quote-row { display:block; white-space:normal; }
+    .veil-word { display:inline-block; opacity:0; filter:blur(9px); transform:translateY(8px); animation:veilIn 1.15s cubic-bezier(.16,1,.3,1) forwards; will-change:opacity,filter,transform; }
+    .veil-space { display:inline-block; width:.28em; }
+    .quote-author { display:block; margin-top:17px; color:var(--muted); font-family:var(--clean); font-size:10px; font-style:normal; font-weight:500; letter-spacing:.18em; text-transform:uppercase; opacity:0; filter:blur(7px); transform:translateY(7px); animation:veilIn 1.1s cubic-bezier(.16,1,.3,1) 2.65s forwards; }
+    @keyframes veilIn { 0% { opacity:0; filter:blur(9px); transform:translateY(8px); } 55% { opacity:.82; } 100% { opacity:1; filter:blur(0); transform:translateY(0); } }
 
     .pinsel-area { position:relative; width:100%; height:250px; margin:0; padding:0; overflow:hidden; background:#111; }
     .pinsel-fixed { position:absolute; inset:0; background-image:url("https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Pinsel%20ausgeschnitten.jpg?raw=true"); background-repeat:no-repeat; background-size:cover; background-position:center center; background-attachment:fixed; }
     .page-content { position:relative; margin:0; background:#f4f0eb; }
 
     .section-heading { padding:62px 0 36px; text-align:center; }
-    .section-heading h2, .contact-copy h2 { margin:0; font-family:var(--serif); font-size:clamp(42px,4.8vw,62px); font-weight:500; line-height:.95; }
-    .section-heading p { margin:5px 0 0; color:var(--muted); font-family:var(--script); font-size:clamp(25px,2vw,32px); }
-    .services { display:grid; gap:72px; padding-bottom:74px; }
-    .service { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(250px,.55fr); gap:46px; align-items:center; }
-    .service.reverse { grid-template-columns:minmax(250px,.55fr) minmax(0,1.45fr); }
+    .section-heading h2,.contact-copy h2 { margin:0; font-family:var(--clean); font-size:clamp(30px,3vw,46px); font-weight:300; letter-spacing:.075em; line-height:1; text-transform:uppercase; }
+    .section-heading p { margin:11px 0 0; color:var(--muted); font-family:var(--script); font-size:clamp(28px,2.3vw,37px); line-height:1; }
+
+    .services { display:grid; gap:84px; padding-bottom:80px; }
+    .service { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(260px,.55fr); gap:54px; align-items:center; }
+    .service.reverse { grid-template-columns:minmax(260px,.55fr) minmax(0,1.45fr); }
     .service.reverse .service-image { order:2; }
     .service.reverse .service-copy { order:1; align-items:flex-end; text-align:right; }
     .service-image { position:relative; height:520px; overflow:hidden; background:#d8cec4; }
     .service-image img { width:100%; height:100%; object-fit:cover; filter:contrast(1.05) saturate(1.04) brightness(1.01); }
     .service-image::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(to top,rgba(16,11,8,.28) 0%,rgba(16,11,8,.03) 46%,transparent 74%); }
-    .image-text { position:absolute; z-index:1; right:28px; bottom:28px; left:28px; color:#fff; text-shadow:0 3px 14px rgba(0,0,0,.48); }
-    .image-text h3 { max-width:680px; margin:0; font-family:var(--serif); font-size:clamp(33px,3vw,51px); font-weight:600; line-height:.95; }
-    .service-copy { display:flex; flex-direction:column; align-items:flex-start; gap:12px; padding:18px; }
-    .service-copy h3 { margin:0; font-family:var(--serif); font-size:clamp(38px,3.2vw,54px); font-weight:600; line-height:.95; }
-    .service-copy p { max-width:340px; margin:0; color:var(--muted); font-size:14px; line-height:1.82; }
+    .image-text { position:absolute; z-index:1; right:30px; bottom:27px; left:30px; color:#fff; text-shadow:0 3px 14px rgba(0,0,0,.48); }
+    .image-text h3 { max-width:740px; margin:0; font-family:var(--script); font-size:clamp(47px,4.4vw,73px); font-weight:400; letter-spacing:0; line-height:.88; text-transform:none; }
+
+    .service-copy { display:flex; flex-direction:column; align-items:flex-start; gap:14px; padding:22px 18px; }
+    .service-copy h3 { margin:0; font-family:var(--clean); font-size:10px; font-weight:500; letter-spacing:.19em; line-height:1.35; text-transform:uppercase; }
+    .service-copy h3::after { content:""; display:block; width:38px; height:1px; margin-top:13px; background:var(--accent); }
+    /* Bei den umgedrehten Bereichen liegt die Linie rechtsbündig unter der Überschrift. */
+    .service.reverse .service-copy h3::after { margin-left:auto; margin-right:0; }
+    .service-copy p { max-width:350px; margin:0; color:var(--muted); font-family:var(--clean); font-size:13px; font-weight:300; letter-spacing:.025em; line-height:1.9; }
+
     .contact { display:grid; grid-template-columns:1fr 1fr; margin-bottom:18px; background:rgba(255,255,255,.25); }
     .contact-copy { display:grid; min-height:440px; padding:48px; place-items:center; text-align:center; }
-    .contact-copy p { margin:18px 0 0; color:var(--muted); font-size:14px; line-height:2; }
+    .contact-copy p { margin:18px 0 0; color:var(--muted); font-family:var(--clean); font-size:12px; font-weight:300; letter-spacing:.055em; line-height:2; }
     .contact-image { min-height:440px; overflow:hidden; }
     .contact-image img { width:100%; height:100%; object-fit:cover; }
-    footer { padding:28px 0 23px; border-top:1px solid var(--line); text-align:center; color:var(--muted); font-size:11px; }
+    footer { padding:28px 0 23px; border-top:1px solid var(--line); text-align:center; color:var(--muted); font-family:var(--clean); font-size:10px; font-weight:400; letter-spacing:.1em; text-transform:uppercase; }
     .footer-links { display:flex; justify-content:center; flex-wrap:wrap; gap:13px; margin:12px 0; }
     .reveal { opacity:0; transform:translateY(24px); transition:opacity .76s ease,transform .76s ease; }
     .reveal.visible { opacity:1; transform:none; }
 
     @media (max-width:920px) {
-      .header-inner, .container { width:min(calc(100% - 34px),1440px); }
+      .header-inner,.container { width:min(calc(100% - 34px),1440px); }
       .pinsel-area { height:220px; }
       .pinsel-fixed { background-attachment:scroll; background-position:center center; }
-      .service, .service.reverse, .contact { grid-template-columns:1fr; }
-      .service.reverse .service-image, .service.reverse .service-copy { order:initial; }
+      .service,.service.reverse,.contact { grid-template-columns:1fr; }
+      .service.reverse .service-image,.service.reverse .service-copy { order:initial; }
       .service.reverse .service-copy { align-items:flex-start; text-align:left; }
+      .service.reverse .service-copy h3::after { margin-left:0; margin-right:auto; }
       .service-copy { padding:0 6px; }
       .service-image { height:470px; }
     }
 
     @media (max-width:620px) {
-      .header-inner, .container { width:min(calc(100% - 28px),1440px); }
-      .site-header { padding-top:14px; }
-      .logo { width:86px; margin-bottom:0; }
+      .header-inner,.container { width:min(calc(100% - 28px),1440px); }
+      .site-header { padding-top:12px; }
+      .logo { width:102px; margin-bottom:0; }
       .desktop-nav { display:none; }
-      .menu-toggle { display:inline-flex; align-items:center; justify-content:center; gap:9px; margin:8px 0 10px; padding:9px 13px; border:1px solid rgba(83,65,52,.2); border-radius:999px; color:var(--ink); background:rgba(255,255,255,.48); font-family:var(--sans); font-size:10px; letter-spacing:.12em; text-transform:uppercase; cursor:pointer; }
-      .burger-lines, .burger-lines::before, .burger-lines::after { display:block; width:17px; height:1px; background:var(--ink); transition:transform .22s ease; }
+      .menu-toggle { display:inline-flex; align-items:center; justify-content:center; gap:9px; margin:7px 0 9px; padding:9px 13px; border:1px solid rgba(83,65,52,.2); border-radius:999px; color:var(--ink); background:rgba(255,255,255,.48); font-family:var(--clean); font-size:10px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; cursor:pointer; }
+      .burger-lines,.burger-lines::before,.burger-lines::after { display:block; width:17px; height:1px; background:var(--ink); transition:transform .22s ease; }
       .burger-lines { position:relative; }
-      .burger-lines::before, .burger-lines::after { content:""; position:absolute; left:0; }
+      .burger-lines::before,.burger-lines::after { content:""; position:absolute; left:0; }
       .burger-lines::before { top:-5px; }
       .burger-lines::after { top:5px; }
       .menu-toggle[aria-expanded="true"] .burger-lines { background:transparent; }
@@ -98,123 +100,65 @@
       .mobile-menu { display:grid; grid-template-rows:0fr; overflow:hidden; margin:0 auto; transition:grid-template-rows .26s ease; }
       .mobile-menu.open { grid-template-rows:1fr; }
       .mobile-menu-inner { min-height:0; display:grid; }
-      .mobile-menu a { padding:13px 10px; font-family:var(--serif); font-size:24px; border-bottom:1px solid rgba(68,53,43,.08); }
+      .mobile-menu a { padding:13px 10px; font-family:var(--clean); font-size:12px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; border-bottom:1px solid rgba(68,53,43,.08); }
       .mobile-menu a:last-child { border-bottom:0; }
-      .quote-band { padding:31px 18px 28px; }
+      .quote-band { padding:31px 18px 29px; }
       .quote { font-size:clamp(38px,10vw,54px); line-height:1.03; }
-      .quote-author { margin-top:10px; font-size:.70em; }
+      .quote-author { margin-top:15px; font-size:9px; letter-spacing:.15em; animation-delay:3.1s; }
       .pinsel-area { height:200px; }
       .section-heading { padding:55px 0 28px; }
-      .services { gap:52px; }
+      .section-heading h2,.contact-copy h2 { font-size:28px; letter-spacing:.07em; }
+      .section-heading p { font-size:32px; }
+      .services { gap:54px; }
       .service-image { height:440px; }
-      .image-text { right:20px; bottom:20px; left:20px; }
+      .image-text { right:20px; bottom:18px; left:20px; }
+      .image-text h3 { font-size:clamp(45px,15vw,63px); line-height:.86; }
       .service-copy { padding:0 4px; }
-      .service-copy h3 { display:none; }
-      .service-copy p { max-width:none; font-size:14px; line-height:1.75; }
-      .contact-copy, .contact-image { min-height:340px; }
+      .service-copy h3 { display:block; font-size:9px; }
+      .service-copy p { max-width:none; font-size:13px; line-height:1.8; }
+      .contact-copy,.contact-image { min-height:340px; }
     }
 
     @media (prefers-reduced-motion:reduce) {
       html { scroll-behavior:auto; }
-      *, *::before, *::after { transition:none !important; animation:none !important; }
-      .quote-line { opacity:1; filter:none; transform:none; }
+      *,*::before,*::after { transition:none !important; animation:none !important; }
+      .veil-word,.quote-author { opacity:1; filter:none; transform:none; }
       .reveal { opacity:1; transform:none; }
     }
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-inner">
-      <img class="logo" src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Logo_final-removebg-preview.png?raw=true" alt="sasatrumua Logo">
-      <nav class="desktop-nav" aria-label="Hauptnavigation">
-        <a href="index.html">Home</a>
-        <a href="ueber-mich.html">Über mich</a>
-        <a href="reviews.html">Reviews</a>
-        <a href="portfolio.html">Portfolio</a>
-        <a href="dienstleistungen.html">Dienstleistungen</a>
-        <a href="braut-infos.html">Infos für die Braut</a>
-        <a href="kontakt.html">Kontakt</a>
-      </nav>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu"><span class="burger-lines" aria-hidden="true"></span> Menü</button>
-      <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile Hauptnavigation">
-        <div class="mobile-menu-inner">
-          <a href="index.html">Home</a>
-          <a href="ueber-mich.html">Über mich</a>
-          <a href="reviews.html">Reviews</a>
-          <a href="portfolio.html">Portfolio</a>
-          <a href="dienstleistungen.html">Dienstleistungen</a>
-          <a href="braut-infos.html">Infos für die Braut</a>
-          <a href="kontakt.html">Kontakt</a>
-        </div>
-      </nav>
-    </div>
-  </header>
+  <header class="site-header"><div class="header-inner">
+    <img class="logo" src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Logo_final-removebg-preview.png?raw=true" alt="sasatrumua Logo">
+    <nav class="desktop-nav" aria-label="Hauptnavigation"><a href="index.html">Home</a><a href="ueber-mich.html">Über mich</a><a href="reviews.html">Reviews</a><a href="portfolio.html">Portfolio</a><a href="dienstleistungen.html">Dienstleistungen</a><a href="braut-infos.html">Infos für die Braut</a><a href="kontakt.html">Kontakt</a></nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu"><span class="burger-lines" aria-hidden="true"></span> Menü</button>
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile Hauptnavigation"><div class="mobile-menu-inner"><a href="index.html">Home</a><a href="ueber-mich.html">Über mich</a><a href="reviews.html">Reviews</a><a href="portfolio.html">Portfolio</a><a href="dienstleistungen.html">Dienstleistungen</a><a href="braut-infos.html">Infos für die Braut</a><a href="kontakt.html">Kontakt</a></div></nav>
+  </div></header>
 
   <main>
-    <section class="quote-band" aria-label="Zitat von Bobbi Brown">
-      <p class="quote">
-        <span class="quote-line">Schön sein bedeutet nicht perfekt auszusehen.</span>
-        <span class="quote-line">Es geht darum die eigene Individualität zu lieben.</span>
-        <span class="quote-line quote-author">- Bobbi Brown</span>
-      </p>
-    </section>
-
+    <section class="quote-band" aria-label="Zitat von Bobbi Brown"><p class="quote"><span class="quote-row"><span class="veil-word" style="animation-delay:.15s">Schön</span><span class="veil-space"></span><span class="veil-word" style="animation-delay:.33s">sein</span><span class="veil-space"></span><span class="veil-word" style="animation-delay:.51s">bedeutet</span><span class="veil-space"></span><span class="veil-word" style="animation-delay:.69s">nicht</span><span class="veil-space"></span><span class="veil-word" style="animation-delay:.87s">perfekt</span><span class="veil-space"></span><span class="veil-word" style="animation-delay:1.05s">auszusehen.</span></span><span class="quote-row"><span class="veil-word" style="animation-delay:1.33s">Es</span><span class="veil-space"></span><span class="veil-word" style="animation-delay:1.51s">geht</span><span class="veil-space"></span><span class="veil-word" style="animation-delay:1.69s">darum,</span><span class="veil-space"></span><span class="veil-word" style="animation-delay:1.87s">die</span><span class="veil-space"></span><span class="veil-word" style="animation-delay:2.05s">eigene</span><span class="veil-space"></span><span class="veil-word" style="animation-delay:2.23s">Individualität</span><span class="veil-space"></span><span class="veil-word" style="animation-delay:2.41s">zu</span><span class="veil-space"></span><span class="veil-word" style="animation-delay:2.59s">lieben.</span></span><span class="quote-author">– Bobbi Brown</span></p></section>
     <section class="pinsel-area" aria-label="Make-up-Pinsel mit Puder"><div class="pinsel-fixed"></div></section>
 
     <div class="page-content">
-      <section class="container" id="services">
-        <div class="section-heading reveal"><h2>Meine Leistungen</h2><p>Was dich erwartet</p></div>
-        <div class="services">
-          <article class="service reveal">
-            <div class="service-image"><img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Diana%20Lippen.jpg?raw=true" alt="Brautstyling" style="object-position:center 24%;"><div class="image-text"><h3>Brautstyling</h3></div></div>
-            <div class="service-copy"><h3>Brautstyling</h3><p>Ein Komplettpaket für meine Bräute inklusive Make-up, Haarstyling und einer Probe.</p></div>
-          </article>
-          <article class="service reverse reveal">
-            <div class="service-image"><img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Model-JillMo-Artist-SarahStrauss-Fotograf-OliverRudolph-Nude.jpg?raw=true" alt="Make-up" style="object-position:center 14%;"><div class="image-text"><h3>Make-up</h3></div></div>
-            <div class="service-copy"><h3>Make-up</h3><p>Beim Make-up ist es mir sehr wichtig, deine natürliche Schönheit zu unterstreichen und speziell auf dich einzugehen.</p></div>
-          </article>
-          <article class="service reveal">
-            <div class="service-image"><img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Sasa%20am%20stylen.jpg?raw=true" alt="Haarstyling" style="object-position:center 28%;"><div class="image-text"><h3>Haarstyling</h3></div></div>
-            <div class="service-copy"><h3>Haarstyling</h3><p>Beim Haarstyling benutze ich nur ausgewählte und hochwertige Produkte.</p></div>
-          </article>
-          <article class="service reverse reveal" id="portfolio">
-            <div class="service-image"><img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Model-JillMo-Artist-SarahStrauss-Fotograf-OliverRudolph-Trend.jpg?raw=true" alt="Styling für Shootings, Film und Fernsehen" style="object-position:center 18%;"><div class="image-text"><h3>Styling für Shootings, Film und Fernsehen</h3></div></div>
-            <div class="service-copy"><h3>Styling für Shootings, Film und Fernsehen</h3><p>Für besondere Anlässe gestalte ich auch abstraktes Make-up, zum Beispiel für Film, Kostüm, Cosplay oder Halloween.</p></div>
-          </article>
-          <article class="service reveal">
-            <div class="service-image"><img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Microblading.jpg?raw=true" alt="Microblading und Shading" style="object-position:center 30%;"><div class="image-text"><h3>Microblading und Shading</h3></div></div>
-            <div class="service-copy"><h3>Microblading und Shading</h3><p>Härchentechnik und Powder Brows für ausdrucksstarke Brauen.</p></div>
-          </article>
-        </div>
-      </section>
-
-      <section class="contact container reveal" id="contact">
-        <div class="contact-copy"><div><h2>Kontakt</h2><p>53547 Breitscheid, Deutschland<br><a href="mailto:sasatrumua@web.de">sasatrumua@web.de</a><br><a href="tel:+4917622583873">017622583873</a></p></div></div>
-        <div class="contact-image"><img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Pinseltasche.png?raw=true" alt="Pinseltasche mit Make-up-Pinseln"></div>
-      </section>
-
+      <section class="container" id="services"><div class="section-heading reveal"><h2>Meine Leistungen</h2><p>Was dich erwartet</p></div><div class="services">
+        <article class="service reveal"><div class="service-image"><img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Diana%20Lippen.jpg?raw=true" alt="Brautstyling" style="object-position:center 24%;"><div class="image-text"><h3>Brautstyling</h3></div></div><div class="service-copy"><h3>Brautstyling</h3><p>Ein Komplettpaket für meine Bräute inklusive Make-up, Haarstyling und einer Probe.</p></div></article>
+        <article class="service reverse reveal"><div class="service-image"><img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Model-JillMo-Artist-SarahStrauss-Fotograf-OliverRudolph-Nude.jpg?raw=true" alt="Make-up" style="object-position:center 14%;"><div class="image-text"><h3>Make-up</h3></div></div><div class="service-copy"><h3>Make-up</h3><p>Beim Make-up ist es mir sehr wichtig, deine natürliche Schönheit zu unterstreichen und speziell auf dich einzugehen.</p></div></article>
+        <article class="service reveal"><div class="service-image"><img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Sasa%20am%20stylen.jpg?raw=true" alt="Haarstyling" style="object-position:center 28%;"><div class="image-text"><h3>Haarstyling</h3></div></div><div class="service-copy"><h3>Haarstyling</h3><p>Beim Haarstyling benutze ich nur ausgewählte und hochwertige Produkte.</p></div></article>
+        <article class="service reverse reveal" id="portfolio"><div class="service-image"><img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Model-JillMo-Artist-SarahStrauss-Fotograf-OliverRudolph-Trend.jpg?raw=true" alt="Styling für Shootings, Film und Fernsehen" style="object-position:center 18%;"><div class="image-text"><h3>Styling für Shootings,<br>Film und Fernsehen</h3></div></div><div class="service-copy"><h3>Styling für Shootings, Film und Fernsehen</h3><p>Für besondere Anlässe gestalte ich auch abstraktes Make-up, zum Beispiel für Film, Kostüm, Cosplay oder Halloween.</p></div></article>
+        <article class="service reveal"><div class="service-image"><img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Microblading.jpg?raw=true" alt="Microblading und Shading" style="object-position:center 30%;"><div class="image-text"><h3>Microblading und Shading</h3></div></div><div class="service-copy"><h3>Microblading und Shading</h3><p>Härchentechnik und Powder Brows für ausdrucksstarke Brauen.</p></div></article>
+      </div></section>
+      <section class="contact container reveal" id="contact"><div class="contact-copy"><div><h2>Kontakt</h2><p>53547 Breitscheid, Deutschland<br><a href="mailto:sasatrumua@web.de">sasatrumua@web.de</a><br><a href="tel:+4917622583873">017622583873</a></p></div></div><div class="contact-image"><img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Pinseltasche.png?raw=true" alt="Pinseltasche mit Make-up-Pinseln"></div></section>
       <footer class="container"><div><a href="mailto:sasatrumua@web.de">sasatrumua@web.de</a></div><div class="footer-links"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="agb.html">AGB</a></div><div>© 2022 von sasatrumua.</div></footer>
     </div>
   </main>
 
   <script>
-    const menuToggle = document.querySelector('.menu-toggle');
-    const mobileMenu = document.querySelector('.mobile-menu');
-    menuToggle.addEventListener('click', () => {
-      const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
-      menuToggle.setAttribute('aria-expanded', String(!isOpen));
-      mobileMenu.classList.toggle('open', !isOpen);
-    });
-    document.querySelectorAll('.mobile-menu a').forEach((link) => {
-      link.addEventListener('click', () => {
-        menuToggle.setAttribute('aria-expanded', 'false');
-        mobileMenu.classList.remove('open');
-      });
-    });
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-    }, { threshold: .12 });
-    document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+    const menuToggle=document.querySelector('.menu-toggle');
+    const mobileMenu=document.querySelector('.mobile-menu');
+    menuToggle.addEventListener('click',()=>{const isOpen=menuToggle.getAttribute('aria-expanded')==='true';menuToggle.setAttribute('aria-expanded',String(!isOpen));mobileMenu.classList.toggle('open',!isOpen)});
+    document.querySelectorAll('.mobile-menu a').forEach(link=>link.addEventListener('click',()=>{menuToggle.setAttribute('aria-expanded','false');mobileMenu.classList.remove('open')}));
+    const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible')}),{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(element=>observer.observe(element));
   </script>
 </body>
 </html>

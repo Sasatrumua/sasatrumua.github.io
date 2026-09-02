@@ -5,569 +5,147 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Erfahre mehr über sasatrumua – Make-up Artist und Hairstylist für Brautstyling, Film und Fernsehen.">
   <title>Über mich | sasatrumua</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-
   <style>
-    :root {
-      --ink: #292522;
-      --muted: #71675f;
-      --gold: #b58a43;
-      --line: rgba(99, 77, 49, .15);
-      --clean: "DM Sans", Arial, sans-serif;
-      --script: "Alex Brush", cursive;
+    :root { --ink:#292522; --muted:#71675f; --gold:#b58a43; --line:rgba(99,77,49,.15); --clean:"DM Sans",Arial,sans-serif; --script:"Alex Brush",cursive; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; overflow-x:hidden; color:var(--ink); font-family:var(--clean); background:#f3eee7; }
+    body::before { content:""; position:fixed; z-index:-2; inset:0; background:url("https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Marmor.png?raw=true") center center / cover no-repeat; pointer-events:none; }
+    body::after { content:""; position:fixed; z-index:-1; inset:0; background:rgba(248,245,240,.12); pointer-events:none; }
+    a { color:inherit; text-decoration:none; }
+    img { display:block; max-width:100%; }
+    .container { width:min(calc(100% - 64px),1180px); margin:0 auto; }
+    .site-header { width:100%; padding:14px 0 11px; text-align:center; background:rgba(250,248,244,.28); }
+    .header-inner { width:min(calc(100% - 64px),1440px); margin:0 auto; text-align:center; }
+    .logo-link { display:inline-block; line-height:0; }
+    .logo-link:focus-visible { outline:1px solid var(--gold); outline-offset:5px; }
+    .logo { width:116px; margin:0 auto 5px; }
+    .desktop-nav { display:flex; justify-content:center; align-items:center; gap:19px; padding:3px 0 8px; font-size:10px; font-weight:500; letter-spacing:.18em; text-transform:uppercase; }
+    .desktop-nav a { position:relative; padding:4px 0; white-space:nowrap; }
+    .desktop-nav a::after { content:""; position:absolute; left:50%; bottom:0; width:0; height:1px; background:var(--gold); transform:translateX(-50%); transition:width .24s ease; }
+    .desktop-nav a:hover::after,.desktop-nav a:focus-visible::after,.desktop-nav a[aria-current="page"]::after { width:100%; }
+    .menu-toggle,.mobile-menu { display:none; }
+    main { padding:70px 0 84px; }
+    .page-intro { margin-bottom:37px; text-align:center; }
+    .page-intro h1 { margin:0; color:var(--ink); font-family:var(--script); font-size:clamp(58px,6.2vw,88px); font-weight:400; line-height:.85; }
+    .page-intro::after { content:""; display:block; width:54px; height:1px; margin:22px auto 0; background:var(--gold); }
+    .about-photo { width:min(100%,590px); aspect-ratio:4 / 5; margin:0 auto 48px; overflow:hidden; background:#d8cec4; box-shadow:0 14px 38px rgba(82,61,39,.10); }
+    .about-photo img { width:100%; height:100%; object-fit:cover; object-position:center; }
+    .about-copy { max-width:785px; margin:0 auto; text-align:center; }
+    .about-copy p { margin:0 0 25px; color:var(--muted); font-size:15px; font-weight:300; letter-spacing:.018em; line-height:1.95; }
+    .about-copy p:last-child { margin-bottom:0; }
+    .about-copy .highlight { margin:3px auto 31px; color:var(--ink); font-family:var(--script); font-size:clamp(34px,3.3vw,50px); font-weight:400; line-height:1.05; }
+    .about-copy .wedding-quote { max-width:670px; margin:34px auto 0; padding-top:31px; border-top:1px solid var(--line); color:var(--ink); font-family:var(--script); font-size:clamp(35px,3.5vw,52px); font-weight:400; line-height:1.1; }
+    .about-copy .brands { max-width:720px; margin-top:35px; padding-top:28px; border-top:1px solid var(--line); color:var(--muted); font-size:13px; letter-spacing:.025em; }
+    footer { width:min(calc(100% - 64px),1180px); margin:0 auto; padding:28px 0 23px; border-top:1px solid var(--line); text-align:center; color:var(--muted); font-size:10px; font-weight:400; letter-spacing:.1em; text-transform:uppercase; }
+    .footer-links { display:flex; justify-content:center; flex-wrap:wrap; gap:13px; margin:12px 0; }
+    .reveal { opacity:0; transform:translateY(22px); transition:opacity .76s ease,transform .76s ease; }
+    .reveal.visible { opacity:1; transform:none; }
+
+    /* Sichtbarer Goldstaub über allen Inhalten und Hintergrundebenen. */
+    .gold-dust-layer { position:fixed; z-index:9999; inset:0; overflow:visible; pointer-events:none; isolation:isolate; }
+    .gold-dust { position:fixed; z-index:10000; display:block; width:4px; height:4px; border-radius:50%; pointer-events:none; opacity:0; background:radial-gradient(circle,rgba(255,255,255,1) 0 16%,rgba(255,234,183,1) 28%,rgba(211,164,78,1) 60%,rgba(177,124,45,0) 79%); box-shadow:0 0 4px rgba(255,247,221,1),0 0 11px rgba(213,165,79,.88); transform:translate(-50%,-50%) scale(.2); will-change:transform,opacity; }
+
+    @media (max-width:920px) { .header-inner,.container,footer { width:min(calc(100% - 34px),760px); } .about-photo { width:min(100%,540px); } }
+    @media (max-width:620px) {
+      .container,footer { width:min(calc(100% - 28px),1440px); }
+      .site-header { padding:12px 0 10px; background:transparent; }
+      .header-inner { display:flex; flex-direction:column; align-items:center; width:100%; margin:0; text-align:center; }
+      .logo-link { display:block; width:102px; margin:0 auto; } .logo { width:102px; margin:0; } .desktop-nav { display:none; }
+      .menu-toggle { display:inline-flex; align-items:center; justify-content:center; gap:9px; align-self:center; margin:10px auto 2px; padding:9px 13px; border:1px solid rgba(83,65,52,.24); border-radius:999px; color:var(--ink); background:rgba(255,255,255,.14); font-family:var(--clean); font-size:10px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; cursor:pointer; }
+      .burger-lines,.burger-lines::before,.burger-lines::after { display:block; width:17px; height:1px; background:var(--ink); transition:transform .22s ease; }
+      .burger-lines { position:relative; } .burger-lines::before,.burger-lines::after { content:""; position:absolute; left:0; } .burger-lines::before { top:-5px; } .burger-lines::after { top:5px; }
+      .menu-toggle[aria-expanded="true"] .burger-lines { background:transparent; } .menu-toggle[aria-expanded="true"] .burger-lines::before { transform:translateY(5px) rotate(45deg); } .menu-toggle[aria-expanded="true"] .burger-lines::after { transform:translateY(-5px) rotate(-45deg); }
+      .mobile-menu { display:grid; grid-template-rows:0fr; width:100%; overflow:hidden; margin:0; transition:grid-template-rows .26s ease; } .mobile-menu.open { grid-template-rows:1fr; }
+      .mobile-menu-inner { display:grid; width:min(calc(100% - 28px),420px); min-height:0; margin:0 auto; }
+      .mobile-menu a { padding:13px 10px; border-bottom:1px solid rgba(68,53,43,.12); font-size:12px; font-weight:500; letter-spacing:.12em; text-align:center; text-transform:uppercase; } .mobile-menu a:last-child { border-bottom:0; }
+      main { padding:52px 0 64px; } .page-intro { margin-bottom:30px; } .page-intro h1 { font-size:67px; } .page-intro::after { margin-top:19px; }
+      .about-photo { width:min(100%,420px); aspect-ratio:4 / 5; margin-bottom:35px; }
+      .about-copy { max-width:100%; } .about-copy p { margin-bottom:22px; font-size:14px; line-height:1.85; } .about-copy .highlight { margin-bottom:26px; font-size:42px; } .about-copy .wedding-quote { margin-top:29px; padding-top:26px; font-size:42px; } .about-copy .brands { margin-top:29px; padding-top:24px; font-size:12px; }
+      .gold-dust-layer { display:none; }
     }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    /*
-      Der Marmor liegt auf einer eigenen, festen Ebene hinter der Seite.
-      Dadurch wird er auf Handy-Browsern nicht wiederholt, nicht abgeschnitten
-      und bewegt sich beim Scrollen nicht mit dem Text.
-    */
-    body {
-      margin: 0;
-      overflow-x: hidden;
-      color: var(--ink);
-      font-family: var(--clean);
-      background: #f3eee7;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      z-index: -2;
-      inset: 0;
-      background-image: url("https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Marmor.png?raw=true");
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: cover;
-      pointer-events: none;
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      z-index: -1;
-      inset: 0;
-      background: rgba(248, 245, 240, .12);
-      pointer-events: none;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    img { display: block; max-width: 100%; }
-
-    .container {
-      width: min(calc(100% - 64px), 1180px);
-      margin: 0 auto;
-    }
-
-    .site-header {
-      width: 100%;
-      padding: 14px 0 11px;
-      text-align: center;
-      background: rgba(250, 248, 244, .28);
-    }
-
-    .header-inner {
-      width: min(calc(100% - 64px), 1440px);
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .logo-link {
-      display: inline-block;
-      line-height: 0;
-    }
-
-    .logo-link:focus-visible {
-      outline: 1px solid var(--gold);
-      outline-offset: 5px;
-    }
-
-    .logo {
-      width: 116px;
-      margin: 0 auto 5px;
-    }
-
-    .desktop-nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 19px;
-      padding: 3px 0 8px;
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-    }
-
-    .desktop-nav a {
-      position: relative;
-      padding: 4px 0;
-      white-space: nowrap;
-    }
-
-    .desktop-nav a::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: 0;
-      width: 0;
-      height: 1px;
-      background: var(--gold);
-      transform: translateX(-50%);
-      transition: width .24s ease;
-    }
-
-    .desktop-nav a:hover::after,
-    .desktop-nav a:focus-visible::after,
-    .desktop-nav a[aria-current="page"]::after { width: 100%; }
-
-    .menu-toggle,
-    .mobile-menu { display: none; }
-
-    main { padding: 70px 0 84px; }
-
-    .page-intro {
-      margin-bottom: 37px;
-      text-align: center;
-    }
-
-    .page-intro h1 {
-      margin: 0;
-      color: var(--ink);
-      font-family: var(--script);
-      font-size: clamp(58px, 6.2vw, 88px);
-      font-weight: 400;
-      line-height: .85;
-    }
-
-    .page-intro::after {
-      content: "";
-      display: block;
-      width: 54px;
-      height: 1px;
-      margin: 22px auto 0;
-      background: var(--gold);
-    }
-
-    .about-photo {
-      width: min(100%, 590px);
-      aspect-ratio: 4 / 5;
-      margin: 0 auto 48px;
-      overflow: hidden;
-      background: #d8cec4;
-      box-shadow: 0 14px 38px rgba(82, 61, 39, .10);
-    }
-
-    .about-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center center;
-    }
-
-    .about-copy {
-      max-width: 785px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .about-copy p {
-      margin: 0 0 25px;
-      color: var(--muted);
-      font-size: 15px;
-      font-weight: 300;
-      letter-spacing: .018em;
-      line-height: 1.95;
-    }
-
-    .about-copy p:last-child { margin-bottom: 0; }
-
-    .about-copy .highlight {
-      margin: 3px auto 31px;
-      color: var(--ink);
-      font-family: var(--script);
-      font-size: clamp(34px, 3.3vw, 50px);
-      font-weight: 400;
-      line-height: 1.05;
-    }
-
-    .about-copy .wedding-quote {
-      max-width: 670px;
-      margin: 34px auto 0;
-      padding-top: 31px;
-      border-top: 1px solid var(--line);
-      color: var(--ink);
-      font-family: var(--script);
-      font-size: clamp(35px, 3.5vw, 52px);
-      font-weight: 400;
-      line-height: 1.1;
-    }
-
-    .about-copy .brands {
-      max-width: 720px;
-      margin-top: 35px;
-      padding-top: 28px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 13px;
-      letter-spacing: .025em;
-    }
-
-    footer {
-      width: min(calc(100% - 64px), 1180px);
-      margin: 0 auto;
-      padding: 28px 0 23px;
-      border-top: 1px solid var(--line);
-      text-align: center;
-      color: var(--muted);
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 13px;
-      margin: 12px 0;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity .76s ease, transform .76s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    .gold-dust-layer {
-      position: fixed;
-      inset: 0;
-      z-index: 999;
-      overflow: hidden;
-      pointer-events: none;
-    }
-
-    .gold-dust {
-      position: fixed;
-      width: 3px;
-      height: 3px;
-      border-radius: 50%;
-      pointer-events: none;
-      opacity: 0;
-      background: radial-gradient(circle, rgba(255,255,255,1) 0 16%, rgba(255,234,183,1) 28%, rgba(211,164,78,.95) 60%, rgba(177,124,45,0) 79%);
-      box-shadow: 0 0 3px rgba(255,247,221,.98), 0 0 8px rgba(213,165,79,.65);
-      transform: translate(-50%, -50%) scale(.2);
-      will-change: transform, opacity;
-    }
-
-    @media (max-width: 920px) {
-      .header-inner,
-      .container,
-      footer { width: min(calc(100% - 34px), 760px); }
-
-      .about-photo { width: min(100%, 540px); }
-    }
-
-    @media (max-width: 620px) {
-      .container,
-      footer { width: min(calc(100% - 28px), 1440px); }
-
-      .site-header {
-        padding: 12px 0 10px;
-        background: transparent;
-      }
-
-      .header-inner {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        margin: 0;
-        text-align: center;
-      }
-
-      .logo-link {
-        display: block;
-        width: 102px;
-        margin: 0 auto;
-      }
-
-      .logo {
-        width: 102px;
-        margin: 0;
-      }
-
-      .desktop-nav { display: none; }
-
-      .menu-toggle {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 9px;
-        align-self: center;
-        margin: 10px auto 2px;
-        padding: 9px 13px;
-        border: 1px solid rgba(83, 65, 52, .24);
-        border-radius: 999px;
-        color: var(--ink);
-        background: rgba(255, 255, 255, .14);
-        font-family: var(--clean);
-        font-size: 10px;
-        font-weight: 500;
-        letter-spacing: .12em;
-        text-transform: uppercase;
-        cursor: pointer;
-      }
-
-      .burger-lines,
-      .burger-lines::before,
-      .burger-lines::after {
-        display: block;
-        width: 17px;
-        height: 1px;
-        background: var(--ink);
-        transition: transform .22s ease;
-      }
-
-      .burger-lines { position: relative; }
-      .burger-lines::before,
-      .burger-lines::after { content: ""; position: absolute; left: 0; }
-      .burger-lines::before { top: -5px; }
-      .burger-lines::after { top: 5px; }
-      .menu-toggle[aria-expanded="true"] .burger-lines { background: transparent; }
-      .menu-toggle[aria-expanded="true"] .burger-lines::before { transform: translateY(5px) rotate(45deg); }
-      .menu-toggle[aria-expanded="true"] .burger-lines::after { transform: translateY(-5px) rotate(-45deg); }
-
-      .mobile-menu {
-        display: grid;
-        grid-template-rows: 0fr;
-        width: 100%;
-        overflow: hidden;
-        margin: 0;
-        transition: grid-template-rows .26s ease;
-      }
-
-      .mobile-menu.open { grid-template-rows: 1fr; }
-
-      .mobile-menu-inner {
-        display: grid;
-        width: min(calc(100% - 28px), 420px);
-        min-height: 0;
-        margin: 0 auto;
-      }
-
-      .mobile-menu a {
-        padding: 13px 10px;
-        border-bottom: 1px solid rgba(68, 53, 43, .12);
-        font-size: 12px;
-        font-weight: 500;
-        letter-spacing: .12em;
-        text-align: center;
-        text-transform: uppercase;
-      }
-
-      .mobile-menu a:last-child { border-bottom: 0; }
-
-      main { padding: 52px 0 64px; }
-      .page-intro { margin-bottom: 30px; }
-      .page-intro h1 { font-size: 67px; }
-      .page-intro::after { margin-top: 19px; }
-
-      .about-photo {
-        width: min(100%, 420px);
-        aspect-ratio: 4 / 5;
-        margin-bottom: 35px;
-      }
-
-      .about-copy { max-width: 100%; }
-      .about-copy p { margin-bottom: 22px; font-size: 14px; line-height: 1.85; }
-      .about-copy .highlight { margin-bottom: 26px; font-size: 42px; }
-      .about-copy .wedding-quote { margin-top: 29px; padding-top: 26px; font-size: 42px; }
-      .about-copy .brands { margin-top: 29px; padding-top: 24px; font-size: 12px; }
-      .gold-dust-layer { display: none; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after { transition: none !important; animation: none !important; }
-      .reveal { opacity: 1; transform: none; }
-      .gold-dust-layer { display: none; }
-    }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition:none!important; animation:none!important; } .reveal { opacity:1; transform:none; } .gold-dust-layer { display:none; } }
   </style>
 </head>
 <body>
   <div class="gold-dust-layer" aria-hidden="true"></div>
+  <header class="site-header"><div class="header-inner">
+    <a class="logo-link" href="index.html" aria-label="Zur Startseite"><img class="logo" src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Logo_final-removebg-preview.png?raw=true" alt="sasatrumua Logo"></a>
+    <nav class="desktop-nav" aria-label="Hauptnavigation"><a href="index.html">Home</a><a href="ueber-mich.html" aria-current="page">Über mich</a><a href="reviews.html">Reviews</a><a href="portfolio.html">Portfolio</a><a href="dienstleistungen.html">Dienstleistungen</a><a href="braut-infos.html">Infos für die Braut</a><a href="kontakt.html">Kontakt</a></nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu"><span class="burger-lines" aria-hidden="true"></span> Menü</button>
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile Hauptnavigation"><div class="mobile-menu-inner"><a href="index.html">Home</a><a href="ueber-mich.html">Über mich</a><a href="reviews.html">Reviews</a><a href="portfolio.html">Portfolio</a><a href="dienstleistungen.html">Dienstleistungen</a><a href="braut-infos.html">Infos für die Braut</a><a href="kontakt.html">Kontakt</a></div></nav>
+  </div></header>
 
-  <header class="site-header">
-    <div class="header-inner">
-      <a class="logo-link" href="index.html" aria-label="Zur Startseite">
-        <img class="logo" src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Logo_final-removebg-preview.png?raw=true" alt="sasatrumua Logo">
-      </a>
+  <main><section class="container">
+    <header class="page-intro reveal"><h1>Über mich</h1></header>
+    <figure class="about-photo reveal"><img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Sasa%20Messebild.jpg?raw=true" alt="Sarah Strauss, Make-up Artist und Hairstylist"></figure>
+    <article class="about-copy reveal">
+      <p>2017 habe ich mich entschieden, meiner Leidenschaft für Make-up nachzugehen. An einer international anerkannten Schule absolvierte ich meine Ausbildung zur Make-up Artist und Hairstylist mit sehr guten Leistungen.</p>
+      <p>Direkt danach durfte ich an der Seite einer renommierten Stylistin wertvolle Erfahrungen für Film und Fernsehen sammeln. Diese Zeit hat meinen Blick für Details, unterschiedliche Looks und die besondere Wirkung eines stimmigen Stylings geprägt.</p>
+      <p>Schon bald wurde mir klar: Meine größte Leidenschaft ist das Brautstyling. Seitdem habe ich mich darauf spezialisiert, Bräute an ihrem großen Tag mit einem Look zu begleiten, der sich ganz nach ihnen anfühlt.</p>
+      <p class="highlight">Natürlich. Individuell. Ganz du.</p>
+      <p>Mir ist wichtig, deine natürliche Schönheit zu unterstreichen – ohne dich zu verändern. Deshalb gibt es bei mir kein Styling von der Stange: Wir sprechen offen über deine Wünsche und Vorstellungen und entwickeln gemeinsam einen Look, in dem du dich wohl, schön und ganz du selbst fühlst.</p>
+      <p>Eine entspannte, herzliche Atmosphäre gehört für mich genauso dazu wie Sorgfalt und Qualität. Ich bilde mich regelmäßig weiter, verfolge neue Techniken und Trends und wähle meine Produkte bewusst aus – für ein Styling, das nicht nur wunderschön aussieht.</p>
+      <p class="wedding-quote">Es ist für mich immer wieder etwas Besonderes,<br>Teil einer Hochzeit sein zu dürfen.</p>
+      <p class="brands">Ich arbeite unter anderem mit Produkten von Estée Lauder, MAC, Fenty Beauty, Charlotte Tilbury, L’Oréal, GHD, TIGI und Newsha.</p>
+    </article>
+  </section></main>
 
-      <nav class="desktop-nav" aria-label="Hauptnavigation">
-        <a href="index.html">Home</a>
-        <a href="ueber-mich.html" aria-current="page">Über mich</a>
-        <a href="reviews.html">Reviews</a>
-        <a href="portfolio.html">Portfolio</a>
-        <a href="dienstleistungen.html">Dienstleistungen</a>
-        <a href="braut-infos.html">Infos für die Braut</a>
-        <a href="kontakt.html">Kontakt</a>
-      </nav>
-
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
-        <span class="burger-lines" aria-hidden="true"></span> Menü
-      </button>
-
-      <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile Hauptnavigation">
-        <div class="mobile-menu-inner">
-          <a href="index.html">Home</a>
-          <a href="ueber-mich.html">Über mich</a>
-          <a href="reviews.html">Reviews</a>
-          <a href="portfolio.html">Portfolio</a>
-          <a href="dienstleistungen.html">Dienstleistungen</a>
-          <a href="braut-infos.html">Infos für die Braut</a>
-          <a href="kontakt.html">Kontakt</a>
-        </div>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section class="container">
-      <header class="page-intro reveal">
-        <h1>Über mich</h1>
-      </header>
-
-      <figure class="about-photo reveal">
-        <img src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Sasa%20Messebild.jpg?raw=true" alt="Sarah Strauss, Make-up Artist und Hairstylist">
-      </figure>
-
-      <article class="about-copy reveal">
-        <p>2017 habe ich mich entschieden, meiner Leidenschaft für Make-up nachzugehen. An einer international anerkannten Schule absolvierte ich meine Ausbildung zur Make-up Artist und Hairstylist mit sehr guten Leistungen.</p>
-
-        <p>Direkt danach durfte ich an der Seite einer renommierten Stylistin wertvolle Erfahrungen für Film und Fernsehen sammeln. Diese Zeit hat meinen Blick für Details, unterschiedliche Looks und die besondere Wirkung eines stimmigen Stylings geprägt.</p>
-
-        <p>Schon bald wurde mir klar: Meine größte Leidenschaft ist das Brautstyling. Seitdem habe ich mich darauf spezialisiert, Bräute an ihrem großen Tag mit einem Look zu begleiten, der sich ganz nach ihnen anfühlt.</p>
-
-        <p class="highlight">Natürlich. Individuell. Ganz du.</p>
-
-        <p>Mir ist wichtig, deine natürliche Schönheit zu unterstreichen – ohne dich zu verändern. Deshalb gibt es bei mir kein Styling von der Stange: Wir sprechen offen über deine Wünsche und Vorstellungen und entwickeln gemeinsam einen Look, in dem du dich wohl, schön und ganz du selbst fühlst.</p>
-
-        <p>Eine entspannte, herzliche Atmosphäre gehört für mich genauso dazu wie Sorgfalt und Qualität. Ich bilde mich regelmäßig weiter, verfolge neue Techniken und Trends und wähle meine Produkte bewusst aus – für ein Styling, das nicht nur wunderschön aussieht.</p>
-
-        <p class="wedding-quote">Es ist für mich immer wieder etwas Besonderes,<br>Teil einer Hochzeit sein zu dürfen.</p>
-
-        <p class="brands">Ich arbeite unter anderem mit Produkten von Estée Lauder, MAC, Fenty Beauty, Charlotte Tilbury, L’Oréal, GHD, TIGI und Newsha.</p>
-      </article>
-    </section>
-  </main>
-
-  <footer>
-    <div><a href="mailto:sasatrumua@web.de">sasatrumua@web.de</a></div>
-    <div class="footer-links">
-      <a href="impressum.html">Impressum</a>
-      <a href="datenschutz.html">Datenschutz</a>
-      <a href="agb.html">AGB</a>
-    </div>
-    <div>© 2026 von sasatrumua.</div>
-  </footer>
+  <footer><div><a href="mailto:sasatrumua@web.de">sasatrumua@web.de</a></div><div class="footer-links"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="agb.html">AGB</a></div><div>© 2026 von sasatrumua.</div></footer>
 
   <script>
-    const menuToggle = document.querySelector('.menu-toggle');
-    const mobileMenu = document.querySelector('.mobile-menu');
+    const menuToggle=document.querySelector('.menu-toggle');const mobileMenu=document.querySelector('.mobile-menu');
+    menuToggle.addEventListener('click',()=>{const isOpen=menuToggle.getAttribute('aria-expanded')==='true';menuToggle.setAttribute('aria-expanded',String(!isOpen));mobileMenu.classList.toggle('open',!isOpen);});
+    document.querySelectorAll('.mobile-menu a').forEach(link=>link.addEventListener('click',()=>{menuToggle.setAttribute('aria-expanded','false');mobileMenu.classList.remove('open');}));
+    const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible');}),{threshold:.12});document.querySelectorAll('.reveal').forEach(element=>observer.observe(element));
 
-    menuToggle.addEventListener('click', () => {
-      const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
-      menuToggle.setAttribute('aria-expanded', String(!isOpen));
-      mobileMenu.classList.toggle('open', !isOpen);
-    });
-
-    document.querySelectorAll('.mobile-menu a').forEach((link) => {
-      link.addEventListener('click', () => {
-        menuToggle.setAttribute('aria-expanded', 'false');
-        mobileMenu.classList.remove('open');
-      });
-    });
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: .12 });
-
-    document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
-
-    const dustLayer = document.querySelector('.gold-dust-layer');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (!reducedMotion && window.innerWidth > 620) {
-      let previousX = null;
-      let previousY = null;
-      let lastDust = 0;
-
-      function makeDust(x, y, quantity) {
-        for (let i = 0; i < quantity; i++) {
-          const dust = document.createElement('span');
-          dust.className = 'gold-dust';
-
-          const size = 1 + Math.random() * 2.6;
-          const angle = Math.random() * Math.PI * 2;
-          const distance = 4 + Math.random() * 25;
-          const driftX = Math.cos(angle) * distance;
-          const driftY = Math.sin(angle) * distance - 3 - Math.random() * 12;
-
-          dust.style.width = size + 'px';
-          dust.style.height = size + 'px';
-          dust.style.left = (x + (Math.random() - .5) * 10) + 'px';
-          dust.style.top = (y + (Math.random() - .5) * 10) + 'px';
-          dust.style.opacity = (.54 + Math.random() * .38).toFixed(2);
+    const dustLayer=document.querySelector('.gold-dust-layer');
+    const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!reducedMotion&&window.matchMedia('(pointer: fine)').matches){
+      let previousX=null,previousY=null,lastDust=0;
+      function makeDust(x,y,quantity){
+        for(let i=0;i<quantity;i++){
+          const dust=document.createElement('span');
+          dust.className='gold-dust';
+          const size=2+Math.random()*3.2;
+          const angle=Math.random()*Math.PI*2;
+          const distance=7+Math.random()*32;
+          const driftX=Math.cos(angle)*distance;
+          const driftY=Math.sin(angle)*distance-5-Math.random()*14;
+          dust.style.width=size+'px';
+          dust.style.height=size+'px';
+          dust.style.left=(x+(Math.random()-.5)*11)+'px';
+          dust.style.top=(y+(Math.random()-.5)*11)+'px';
+          dust.style.opacity=(.66+Math.random()*.3).toFixed(2);
           dustLayer.appendChild(dust);
-
-          requestAnimationFrame(() => {
-            dust.style.transition = 'transform 850ms cubic-bezier(.16,.84,.35,1), opacity 850ms ease';
-            dust.style.transform = `translate(calc(-50% + ${driftX}px), calc(-50% + ${driftY}px)) scale(${.62 + Math.random() * .75})`;
-            dust.style.opacity = '0';
+          requestAnimationFrame(()=>{
+            dust.style.transition='transform 920ms cubic-bezier(.16,.84,.35,1), opacity 920ms ease';
+            dust.style.transform=`translate(calc(-50% + ${driftX}px), calc(-50% + ${driftY}px)) scale(${.7+Math.random()*.9})`;
+            dust.style.opacity='0';
           });
-
-          window.setTimeout(() => dust.remove(), 890);
+          window.setTimeout(()=>dust.remove(),960);
         }
       }
-
-      document.addEventListener('mousemove', (event) => {
-        const now = performance.now();
-
-        if (previousX !== null) {
-          const dx = event.clientX - previousX;
-          const dy = event.clientY - previousY;
-          const distance = Math.hypot(dx, dy);
-          const steps = Math.max(1, Math.ceil(distance / 7));
-
-          if (now - lastDust > 12 || distance > 2) {
-            for (let step = 0; step <= steps; step++) {
-              const progress = step / steps;
-              makeDust(previousX + dx * progress, previousY + dy * progress, 2 + Math.floor(Math.random() * 2));
+      document.addEventListener('pointermove',event=>{
+        if(event.pointerType&&event.pointerType!=='mouse') return;
+        const now=performance.now();
+        if(previousX!==null){
+          const dx=event.clientX-previousX,dy=event.clientY-previousY;
+          const distance=Math.hypot(dx,dy);
+          const steps=Math.max(1,Math.ceil(distance/10));
+          if(now-lastDust>13||distance>3){
+            for(let step=0;step<=steps;step++){
+              const progress=step/steps;
+              makeDust(previousX+dx*progress,previousY+dy*progress,2+Math.floor(Math.random()*2));
             }
-            lastDust = now;
+            lastDust=now;
           }
-        } else {
-          makeDust(event.clientX, event.clientY, 4);
-        }
-
-        previousX = event.clientX;
-        previousY = event.clientY;
-      }, { passive: true });
+        } else { makeDust(event.clientX,event.clientY,4); }
+        previousX=event.clientX; previousY=event.clientY;
+      },{passive:true});
     }
   </script>
 </body>

@@ -29,30 +29,19 @@
     .desktop-nav a:hover::after,.desktop-nav a:focus-visible::after,.desktop-nav a[aria-current="page"]::after { width:100%; }
     .menu-toggle,.mobile-menu { display:none; }
 
-    main { padding:76px 0 84px; }
-    .contact-layout { display:grid; grid-template-columns:minmax(280px,.8fr) minmax(420px,1.2fr); gap:92px; align-items:start; }
-    .contact-heading { margin:0 0 45px; font-size:clamp(48px,5.3vw,78px); font-weight:300; letter-spacing:.01em; line-height:.95; }
-    .contact-details { display:grid; gap:25px; }
-    .contact-item { display:grid; grid-template-columns:34px 1fr; gap:18px; align-items:center; }
+    main { min-height:calc(100vh - 278px); padding:76px 0 84px; }
+    .contact-panel { max-width:770px; margin:0 auto; padding:52px 56px 50px; border:1px solid var(--line); background:rgba(255,255,255,.20); text-align:center; box-shadow:0 12px 34px rgba(82,61,39,.05); }
+    .contact-heading { margin:0; font-family:var(--script); font-size:clamp(58px,6.2vw,88px); font-weight:400; line-height:.85; }
+    .contact-heading::after { content:""; display:block; width:54px; height:1px; margin:23px auto 0; background:var(--gold); }
+    .contact-intro { max-width:520px; margin:29px auto 38px; color:var(--muted); font-size:15px; font-weight:300; line-height:1.85; }
+    .contact-details { display:grid; gap:23px; width:min(100%,410px); margin:0 auto; text-align:left; }
+    .contact-item { display:grid; grid-template-columns:31px 1fr; gap:19px; align-items:center; }
     .contact-icon { display:grid; place-items:center; width:27px; height:27px; color:var(--ink); }
     .contact-icon svg { width:25px; height:25px; stroke:currentColor; stroke-width:1.65; fill:none; stroke-linecap:round; stroke-linejoin:round; }
-    .contact-value { color:var(--muted); font-family:var(--script); font-size:20px; line-height:1.35; }
+    .contact-value { color:var(--muted); font-family:var(--script); font-size:21px; line-height:1.36; }
     .contact-value span { display:block; }
     .instagram-link { display:inline-block; width:max-content; border-bottom:1px solid transparent; transition:color .2s ease,border-color .2s ease; }
     .instagram-link:hover,.instagram-link:focus-visible { color:var(--gold); border-bottom-color:var(--gold); outline:none; }
-
-    .contact-form { display:grid; grid-template-columns:1fr 1fr; gap:22px 18px; padding-top:6px; }
-    .field { display:flex; flex-direction:column; gap:8px; }
-    .field.full { grid-column:1 / -1; }
-    .field label { color:var(--ink); font-size:13px; font-weight:400; }
-    .field input,.field textarea { width:100%; border:1px solid rgba(41,37,34,.78); border-radius:0; padding:13px 12px; color:var(--ink); background:rgba(255,255,255,.62); font:300 14px var(--clean); outline:none; }
-    .field input { height:35px; }
-    .field textarea { min-height:108px; resize:vertical; }
-    .field input:focus,.field textarea:focus { border-color:var(--gold); box-shadow:0 0 0 2px rgba(181,138,67,.18); }
-    .submit-row { display:flex; justify-content:flex-end; grid-column:1 / -1; }
-    .submit-button { min-width:115px; padding:10px 23px; border:0; color:#fff; background:#788078; font:400 13px var(--clean); cursor:pointer; transition:background .2s ease,transform .2s ease; }
-    .submit-button:hover { background:#626b63; transform:translateY(-1px); }
-    .form-status { grid-column:1 / -1; min-height:20px; margin:0; color:var(--muted); font-size:12px; text-align:right; }
 
     footer { width:min(calc(100% - 64px),1180px); margin:0 auto; padding:28px 0 23px; border-top:1px solid var(--line); text-align:center; color:var(--muted); font-size:10px; font-weight:400; letter-spacing:.1em; text-transform:uppercase; }
     .footer-links { display:flex; justify-content:center; flex-wrap:wrap; gap:13px; margin:12px 0; }
@@ -67,7 +56,10 @@
     .reveal { opacity:0; transform:translateY(22px); transition:opacity .76s ease,transform .76s ease; }
     .reveal.visible { opacity:1; transform:none; }
 
-    @media (max-width:920px) { .header-inner,.container,footer { width:min(calc(100% - 34px),760px); } .contact-layout { gap:45px; } }
+    .gold-dust-layer { position:fixed; z-index:9999; inset:0; overflow:visible; pointer-events:none; isolation:isolate; }
+    .gold-dust { position:fixed; z-index:10000; display:block; width:4px; height:4px; border-radius:50%; pointer-events:none; opacity:0; background:radial-gradient(circle,rgba(255,255,255,1) 0 16%,rgba(255,234,183,1) 28%,rgba(211,164,78,1) 60%,rgba(177,124,45,0) 79%); box-shadow:0 0 4px rgba(255,247,221,1),0 0 11px rgba(213,165,79,.88); transform:translate(-50%,-50%) scale(.2); will-change:transform,opacity; }
+
+    @media (max-width:920px) { .header-inner,.container,footer { width:min(calc(100% - 34px),760px); } }
     @media (max-width:620px) {
       .container,footer { width:min(calc(100% - 28px),1440px); }
       .site-header { padding:12px 0 10px; background:transparent; }
@@ -79,17 +71,14 @@
       .menu-toggle[aria-expanded="true"] .burger-lines { background:transparent; } .menu-toggle[aria-expanded="true"] .burger-lines::before { transform:translateY(5px) rotate(45deg); } .menu-toggle[aria-expanded="true"] .burger-lines::after { transform:translateY(-5px) rotate(-45deg); }
       .mobile-menu { display:grid; grid-template-rows:0fr; width:100%; overflow:hidden; margin:0; transition:grid-template-rows .26s ease; } .mobile-menu.open { grid-template-rows:1fr; } .mobile-menu-inner { display:grid; width:min(calc(100% - 28px),420px); min-height:0; margin:0 auto; }
       .mobile-menu a { padding:13px 10px; border-bottom:1px solid rgba(68,53,43,.12); font-size:12px; font-weight:500; letter-spacing:.12em; text-align:center; text-transform:uppercase; } .mobile-menu a:last-child { border-bottom:0; }
-      main { padding:52px 0 64px; }
-      .contact-layout { grid-template-columns:1fr; gap:47px; }
-      .contact-heading { margin-bottom:31px; font-size:58px; text-align:center; }
-      .contact-details { gap:21px; max-width:280px; margin:0 auto; }
-      .contact-item { grid-template-columns:30px 1fr; gap:13px; } .contact-icon { width:24px; height:24px; } .contact-icon svg { width:22px; height:22px; } .contact-value { font-size:19px; }
-      .contact-form { grid-template-columns:1fr; gap:18px; padding-top:0; } .field.full { grid-column:auto; } .submit-row { grid-column:auto; justify-content:center; } .form-status { grid-column:auto; text-align:center; }
+      main { min-height:0; padding:52px 0 64px; } .contact-panel { padding:42px 25px 39px; } .contact-heading { font-size:67px; } .contact-intro { margin:27px auto 33px; font-size:14px; } .contact-details { gap:21px; max-width:280px; } .contact-item { grid-template-columns:30px 1fr; gap:13px; } .contact-icon { width:24px; height:24px; } .contact-icon svg { width:22px; height:22px; } .contact-value { font-size:19px; }
+      .gold-dust-layer { display:none; }
     }
-    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition:none!important; animation:none!important; } .reveal { opacity:1; transform:none; } }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition:none!important; animation:none!important; } .reveal { opacity:1; transform:none; } .gold-dust-layer { display:none; } }
   </style>
 </head>
 <body>
+  <div class="gold-dust-layer" aria-hidden="true"></div>
   <header class="site-header"><div class="header-inner">
     <a class="logo-link" href="index.html" aria-label="Zur Startseite"><img class="logo" src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Logo_final-removebg-preview.png?raw=true" alt="sasatrumua Logo"></a>
     <nav class="desktop-nav" aria-label="Hauptnavigation"><a href="index.html">Home</a><a href="ueber-mich.html">Über mich</a><a href="reviews.html">Reviews</a><a href="portfolio.html">Portfolio</a><a href="dienstleistungen.html">Dienstleistungen</a><a href="braut-infos.html">Infos für die Braut</a><a href="kontakt.html" aria-current="page">Kontakt</a></nav>
@@ -97,39 +86,26 @@
     <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile Hauptnavigation"><div class="mobile-menu-inner"><a href="index.html">Home</a><a href="ueber-mich.html">Über mich</a><a href="reviews.html">Reviews</a><a href="portfolio.html">Portfolio</a><a href="dienstleistungen.html">Dienstleistungen</a><a href="braut-infos.html">Infos für die Braut</a><a href="kontakt.html" aria-current="page">Kontakt</a></div></nav>
   </div></header>
 
-  <main><section class="container contact-layout">
-    <div class="contact-info reveal">
-      <h1 class="contact-heading">Kontakt</h1>
-      <div class="contact-details">
-        <div class="contact-item"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10.2c0 5.1-8 10.3-8 10.3S4 15.3 4 10.2A8 8 0 1 1 20 10.2Z"/><circle cx="12" cy="10" r="2.7"/></svg></span><div class="contact-value"><span>53547 Breitscheid</span><span>Deutschland</span></div></div>
-        <div class="contact-item"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5.1 3.8 8.3 3c.7-.2 1.4.2 1.6.8l1.2 3.1c.2.6 0 1.2-.5 1.5l-1.7 1.1a14.4 14.4 0 0 0 5.6 5.6l1.1-1.7c.3-.5.9-.7 1.5-.5l3.1 1.2c.6.2 1 .9.8 1.6l-.8 3.2c-.2.7-.8 1.2-1.6 1.2C10.2 20.1 3.9 13.8 3.9 6.4c0-.8.5-1.4 1.2-1.6Z"/></svg></span><span class="contact-value">0176-22583837</span></div>
-        <div class="contact-item"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14"/><path d="m3 7 9 6 9-6"/></svg></span><span class="contact-value">sasatrumua@web.de</span></div>
-        <div class="contact-item"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.8" r=".8" fill="currentColor" stroke="none"/></svg></span><a class="contact-value instagram-link" href="https://www.instagram.com/sasa.trumua/" target="_blank" rel="noopener noreferrer">sasa.trumua</a></div>
-      </div>
+  <main><section class="container"><article class="contact-panel reveal">
+    <h1 class="contact-heading">Kontakt</h1>
+    <p class="contact-intro">Ich freue mich auf deine Nachricht und darauf, dich an deinem besonderen Tag begleiten zu dürfen.</p>
+    <div class="contact-details">
+      <div class="contact-item"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10.2c0 5.1-8 10.3-8 10.3S4 15.3 4 10.2A8 8 0 1 1 20 10.2Z"/><circle cx="12" cy="10" r="2.7"/></svg></span><div class="contact-value"><span>53547 Breitscheid</span><span>Deutschland</span></div></div>
+      <div class="contact-item"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5.1 3.8 8.3 3c.7-.2 1.4.2 1.6.8l1.2 3.1c.2.6 0 1.2-.5 1.5l-1.7 1.1a14.4 14.4 0 0 0 5.6 5.6l1.1-1.7c.3-.5.9-.7 1.5-.5l3.1 1.2c.6.2 1 .9.8 1.6l-.8 3.2c-.2.7-.8 1.2-1.6 1.2C10.2 20.1 3.9 13.8 3.9 6.4c0-.8.5-1.4 1.2-1.6Z"/></svg></span><span class="contact-value">0176-22583837</span></div>
+      <div class="contact-item"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14"/><path d="m3 7 9 6 9-6"/></svg></span><span class="contact-value">sasatrumua@web.de</span></div>
+      <div class="contact-item"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.8" r=".8" fill="currentColor" stroke="none"/></svg></span><a class="contact-value instagram-link" href="https://www.instagram.com/sasa.trumua/" target="_blank" rel="noopener noreferrer">sasa.trumua</a></div>
     </div>
+  </article></section></main>
 
-    <form class="contact-form reveal" action="mailto:sasatrumua@web.de" method="post" enctype="text/plain">
-      <div class="field"><label for="first-name">Vorname</label><input id="first-name" name="Vorname" type="text" autocomplete="given-name" required></div>
-      <div class="field"><label for="last-name">Nachname</label><input id="last-name" name="Nachname" type="text" autocomplete="family-name" required></div>
-      <div class="field full"><label for="email">E-Mail *</label><input id="email" name="E-Mail" type="email" autocomplete="email" required></div>
-      <div class="field full"><label for="message">Nachricht</label><textarea id="message" name="Nachricht" required></textarea></div>
-      <div class="submit-row"><button class="submit-button" type="submit">Senden</button></div>
-      <p class="form-status" aria-live="polite"></p>
-    </form>
-  </section></main>
-
-  <footer>
-    <div><a href="mailto:sasatrumua@web.de">sasatrumua@web.de</a></div>
-    <div class="footer-links"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="agb.html">AGB</a></div>
-    <a class="footer-instagram" href="https://www.instagram.com/sasa.trumua/" target="_blank" rel="noopener noreferrer" aria-label="sasatrumua auf Instagram öffnen"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.8" r=".8" class="instagram-dot"></circle></svg><span>Instagram</span></a>
-    <div>© 2026 von sasatrumua.</div>
-  </footer>
+  <footer><div><a href="mailto:sasatrumua@web.de">sasatrumua@web.de</a></div><div class="footer-links"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="agb.html">AGB</a></div><a class="footer-instagram" href="https://www.instagram.com/sasa.trumua/" target="_blank" rel="noopener noreferrer" aria-label="sasatrumua auf Instagram öffnen"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.8" r=".8" class="instagram-dot"></circle></svg><span>Instagram</span></a><div>© 2026 von sasatrumua.</div></footer>
 
   <script>
     const menuToggle=document.querySelector('.menu-toggle');const mobileMenu=document.querySelector('.mobile-menu');
     menuToggle.addEventListener('click',()=>{const isOpen=menuToggle.getAttribute('aria-expanded')==='true';menuToggle.setAttribute('aria-expanded',String(!isOpen));mobileMenu.classList.toggle('open',!isOpen);});
     document.querySelectorAll('.mobile-menu a').forEach(link=>link.addEventListener('click',()=>{menuToggle.setAttribute('aria-expanded','false');mobileMenu.classList.remove('open');}));
     const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible');}),{threshold:.1});document.querySelectorAll('.reveal').forEach(element=>observer.observe(element));
+    const dustLayer=document.querySelector('.gold-dust-layer');const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!reducedMotion&&window.matchMedia('(pointer: fine)').matches){let previousX=null,previousY=null,lastDust=0;function makeDust(x,y,quantity){for(let i=0;i<quantity;i++){const dust=document.createElement('span');dust.className='gold-dust';const size=2+Math.random()*3.2,angle=Math.random()*Math.PI*2,distance=7+Math.random()*32,driftX=Math.cos(angle)*distance,driftY=Math.sin(angle)*distance-5-Math.random()*14;dust.style.width=size+'px';dust.style.height=size+'px';dust.style.left=(x+(Math.random()-.5)*11)+'px';dust.style.top=(y+(Math.random()-.5)*11)+'px';dust.style.opacity=(.66+Math.random()*.3).toFixed(2);dustLayer.appendChild(dust);requestAnimationFrame(()=>{dust.style.transition='transform 920ms cubic-bezier(.16,.84,.35,1), opacity 920ms ease';dust.style.transform=`translate(calc(-50% + ${driftX}px), calc(-50% + ${driftY}px)) scale(${.7+Math.random()*.9})`;dust.style.opacity='0';});window.setTimeout(()=>dust.remove(),960);}}document.addEventListener('pointermove',event=>{if(event.pointerType&&event.pointerType!=='mouse')return;const now=performance.now();if(previousX!==null){const dx=event.clientX-previousX,dy=event.clientY-previousY,distance=Math.hypot(dx,dy),steps=Math.max(1,Math.ceil(distance/10));if(now-lastDust>13||distance>3){for(let step=0;step<=steps;step++){const progress=step/steps;makeDust(previousX+dx*progress,previousY+dy*progress,2+Math.floor(Math.random()*2));}lastDust=now;}}else{makeDust(event.clientX,event.clientY,4);}previousX=event.clientX;previousY=event.clientY;},{passive:true});}
   </script>
 </body>
 </html>

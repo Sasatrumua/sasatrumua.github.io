@@ -29,14 +29,11 @@
     .desktop-nav a:hover::after,.desktop-nav a:focus-visible::after,.desktop-nav a[aria-current="page"]::after { width:100%; }
     .menu-toggle,.mobile-menu { display:none; }
     main { padding:66px 0 84px; }
-
     .hero { position:relative; min-height:430px; overflow:hidden; margin-bottom:70px; box-shadow:0 14px 38px rgba(82,61,39,.10); }
     .hero::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(255,252,247,.22),rgba(255,252,247,.03)); pointer-events:none; }
-    .hero img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center center; }
-    /* Die Überschrift liegt bewusst im freien, hellen linken Bildbereich und nicht über der Braut. */
+    .hero img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; }
     .hero-title { position:absolute; z-index:1; top:18%; left:7%; width:min(48%,500px); margin:0; color:var(--gold); font-family:var(--script); font-size:clamp(53px,6vw,88px); font-weight:400; line-height:.88; text-align:left; text-shadow:0 1px 11px rgba(255,255,255,.72); }
     .hero-title::after { content:""; display:block; width:54px; height:1px; margin:25px 0 0 4px; background:var(--gold); }
-
     .intro-copy { max-width:780px; margin:0 auto 54px; text-align:center; }
     .intro-copy p { margin:0; color:var(--muted); font-size:15px; font-weight:300; letter-spacing:.018em; line-height:1.92; }
     .info-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px; align-items:stretch; }
@@ -51,8 +48,10 @@
     .footer-links { display:flex; justify-content:center; flex-wrap:wrap; gap:13px; margin:12px 0; }
     .reveal { opacity:0; transform:translateY(22px); transition:opacity .76s ease,transform .76s ease; }
     .reveal.visible { opacity:1; transform:none; }
-    .gold-dust-layer { position:fixed; inset:0; z-index:999; overflow:hidden; pointer-events:none; }
-    .gold-dust { position:fixed; width:3px; height:3px; border-radius:50%; pointer-events:none; opacity:0; background:radial-gradient(circle,rgba(255,255,255,1) 0 16%,rgba(255,234,183,1) 28%,rgba(211,164,78,.95) 60%,rgba(177,124,45,0) 79%); box-shadow:0 0 3px rgba(255,247,221,.98),0 0 8px rgba(213,165,79,.65); transform:translate(-50%,-50%) scale(.2); will-change:transform,opacity; }
+
+    /* Sichtbarer Mausglow über Bild, Karten, Text und festem Marmorhintergrund. */
+    .gold-dust-layer { position:fixed; z-index:9999; inset:0; overflow:visible; pointer-events:none; isolation:isolate; }
+    .gold-dust { position:fixed; z-index:10000; display:block; width:4px; height:4px; border-radius:50%; pointer-events:none; opacity:0; background:radial-gradient(circle,rgba(255,255,255,1) 0 16%,rgba(255,234,183,1) 28%,rgba(211,164,78,1) 60%,rgba(177,124,45,0) 79%); box-shadow:0 0 4px rgba(255,247,221,1),0 0 11px rgba(213,165,79,.88); transform:translate(-50%,-50%) scale(.2); will-change:transform,opacity; }
 
     @media (max-width:920px) { .header-inner,.container,footer { width:min(calc(100% - 34px),760px); } .hero { min-height:360px; margin-bottom:54px; } .info-card { padding:30px 26px; } }
     @media (max-width:620px) {
@@ -65,11 +64,8 @@
       .menu-toggle[aria-expanded="true"] .burger-lines { background:transparent; } .menu-toggle[aria-expanded="true"] .burger-lines::before { transform:translateY(5px) rotate(45deg); } .menu-toggle[aria-expanded="true"] .burger-lines::after { transform:translateY(-5px) rotate(-45deg); }
       .mobile-menu { display:grid; grid-template-rows:0fr; width:100%; overflow:hidden; margin:0; transition:grid-template-rows .26s ease; } .mobile-menu.open { grid-template-rows:1fr; } .mobile-menu-inner { display:grid; width:min(calc(100% - 28px),420px); min-height:0; margin:0 auto; }
       .mobile-menu a { padding:13px 10px; border-bottom:1px solid rgba(68,53,43,.12); font-size:12px; font-weight:500; letter-spacing:.12em; text-align:center; text-transform:uppercase; } .mobile-menu a:last-child { border-bottom:0; }
-      main { padding:45px 0 64px; }
-      .hero { min-height:278px; margin-bottom:43px; } .hero img { object-position:59% center; }
-      .hero-title { top:16%; left:8%; width:50%; font-size:49px; line-height:.86; } .hero-title::after { width:42px; margin-top:17px; margin-left:2px; }
-      .intro-copy { margin-bottom:36px; } .intro-copy p { font-size:14px; line-height:1.85; }
-      .info-list { grid-template-columns:1fr; gap:18px; } .info-card { padding:29px 25px 28px; } .info-card h2 { margin-bottom:18px; font-size:42px; } .info-card p { font-size:14px; line-height:1.81; } .price-note { font-size:28px!important; }
+      main { padding:45px 0 64px; } .hero { min-height:278px; margin-bottom:43px; } .hero img { object-position:59% center; } .hero-title { top:16%; left:8%; width:50%; font-size:49px; line-height:.86; } .hero-title::after { width:42px; margin-top:17px; margin-left:2px; }
+      .intro-copy { margin-bottom:36px; } .intro-copy p { font-size:14px; line-height:1.85; } .info-list { grid-template-columns:1fr; gap:18px; } .info-card { padding:29px 25px 28px; } .info-card h2 { margin-bottom:18px; font-size:42px; } .info-card p { font-size:14px; line-height:1.81; } .price-note { font-size:28px!important; }
       .gold-dust-layer { display:none; }
     }
     @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition:none!important; animation:none!important; } .reveal { opacity:1; transform:none; } .gold-dust-layer { display:none; } }
@@ -79,9 +75,9 @@
   <div class="gold-dust-layer" aria-hidden="true"></div>
   <header class="site-header"><div class="header-inner">
     <a class="logo-link" href="index.html" aria-label="Zur Startseite"><img class="logo" src="https://github.com/Sasatrumua/sasatrumua.github.io/blob/main/Logo_final-removebg-preview.png?raw=true" alt="sasatrumua Logo"></a>
-    <nav class="desktop-nav" aria-label="Hauptnavigation"><a href="index.html">Home</a><a href="ueber-mich.html">Über mich</a><a href="reviews.html">Reviews</a><a href="portfolio.html">Portfolio</a><a href="dienstleistungen.html">Dienstleistungen</a><a href="braut-infos.html" aria-current="page">Infos für die Braut</a><a href="kontakt.html">Kontakt</a></nav>
+    <nav class="desktop-nav" aria-label="Hauptnavigation"><a href="index.html">Home</a><a href="ueber-mich.html">Über mich</a><a href="reviews.html">Reviews</a><a href="portfolio.html">Portfolio</a><a href="dienstleistungen.html">Dienstleistungen</a><a href="Infos-fuer-die-Braut.html" aria-current="page">Infos für die Braut</a><a href="kontakt.html">Kontakt</a></nav>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu"><span class="burger-lines" aria-hidden="true"></span> Menü</button>
-    <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile Hauptnavigation"><div class="mobile-menu-inner"><a href="index.html">Home</a><a href="ueber-mich.html">Über mich</a><a href="reviews.html">Reviews</a><a href="portfolio.html">Portfolio</a><a href="dienstleistungen.html">Dienstleistungen</a><a href="braut-infos.html" aria-current="page">Infos für die Braut</a><a href="kontakt.html">Kontakt</a></div></nav>
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile Hauptnavigation"><div class="mobile-menu-inner"><a href="index.html">Home</a><a href="ueber-mich.html">Über mich</a><a href="reviews.html">Reviews</a><a href="portfolio.html">Portfolio</a><a href="dienstleistungen.html">Dienstleistungen</a><a href="Infos-fuer-die-Braut.html" aria-current="page">Infos für die Braut</a><a href="kontakt.html">Kontakt</a></div></nav>
   </div></header>
 
   <main><section class="container">
@@ -104,7 +100,7 @@
     document.querySelectorAll('.mobile-menu a').forEach(link=>link.addEventListener('click',()=>{menuToggle.setAttribute('aria-expanded','false');mobileMenu.classList.remove('open');}));
     const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible');}),{threshold:.1});document.querySelectorAll('.reveal').forEach(element=>observer.observe(element));
     const dustLayer=document.querySelector('.gold-dust-layer');const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(!reducedMotion&&window.innerWidth>620){let previousX=null,previousY=null,lastDust=0;function makeDust(x,y,quantity){for(let i=0;i<quantity;i++){const dust=document.createElement('span');dust.className='gold-dust';const size=1+Math.random()*2.6,angle=Math.random()*Math.PI*2,distance=4+Math.random()*25,driftX=Math.cos(angle)*distance,driftY=Math.sin(angle)*distance-3-Math.random()*12;dust.style.width=size+'px';dust.style.height=size+'px';dust.style.left=(x+(Math.random()-.5)*10)+'px';dust.style.top=(y+(Math.random()-.5)*10)+'px';dust.style.opacity=(.54+Math.random()*.38).toFixed(2);dustLayer.appendChild(dust);requestAnimationFrame(()=>{dust.style.transition='transform 850ms cubic-bezier(.16,.84,.35,1), opacity 850ms ease';dust.style.transform=`translate(calc(-50% + ${driftX}px), calc(-50% + ${driftY}px)) scale(${.62+Math.random()*.75})`;dust.style.opacity='0';});window.setTimeout(()=>dust.remove(),890);}}document.addEventListener('mousemove',event=>{const now=performance.now();if(previousX!==null){const dx=event.clientX-previousX,dy=event.clientY-previousY,distance=Math.hypot(dx,dy),steps=Math.max(1,Math.ceil(distance/7));if(now-lastDust>12||distance>2){for(let step=0;step<=steps;step++){const progress=step/steps;makeDust(previousX+dx*progress,previousY+dy*progress,2+Math.floor(Math.random()*2));}lastDust=now;}}else{makeDust(event.clientX,event.clientY,4);}previousX=event.clientX;previousY=event.clientY;},{passive:true});}
+    if(!reducedMotion&&window.matchMedia('(pointer: fine)').matches){let previousX=null,previousY=null,lastDust=0;function makeDust(x,y,quantity){for(let i=0;i<quantity;i++){const dust=document.createElement('span');dust.className='gold-dust';const size=2+Math.random()*3.2,angle=Math.random()*Math.PI*2,distance=7+Math.random()*32,driftX=Math.cos(angle)*distance,driftY=Math.sin(angle)*distance-5-Math.random()*14;dust.style.width=size+'px';dust.style.height=size+'px';dust.style.left=(x+(Math.random()-.5)*11)+'px';dust.style.top=(y+(Math.random()-.5)*11)+'px';dust.style.opacity=(.66+Math.random()*.3).toFixed(2);dustLayer.appendChild(dust);requestAnimationFrame(()=>{dust.style.transition='transform 920ms cubic-bezier(.16,.84,.35,1), opacity 920ms ease';dust.style.transform=`translate(calc(-50% + ${driftX}px), calc(-50% + ${driftY}px)) scale(${.7+Math.random()*.9})`;dust.style.opacity='0';});window.setTimeout(()=>dust.remove(),960);}}document.addEventListener('pointermove',event=>{if(event.pointerType&&event.pointerType!=='mouse')return;const now=performance.now();if(previousX!==null){const dx=event.clientX-previousX,dy=event.clientY-previousY,distance=Math.hypot(dx,dy),steps=Math.max(1,Math.ceil(distance/10));if(now-lastDust>13||distance>3){for(let step=0;step<=steps;step++){const progress=step/steps;makeDust(previousX+dx*progress,previousY+dy*progress,2+Math.floor(Math.random()*2));}lastDust=now;}}else{makeDust(event.clientX,event.clientY,4);}previousX=event.clientX;previousY=event.clientY;},{passive:true});}
   </script>
 </body>
 </html>
